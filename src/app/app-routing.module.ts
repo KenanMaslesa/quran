@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SpeakingComponent } from './components/speaking/speaking.component';
 
 const routes: Routes = [
-  {path: 'speaking', component: SpeakingComponent},
+  {path: '', component: SpeakingComponent},
 ];
 
 @NgModule({
