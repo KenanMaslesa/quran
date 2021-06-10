@@ -1,0 +1,15 @@
+#main{
+  transition: all 0.5s;
+  padding:10px 30px;
+
+  /*&.m-l-300{
+    margin-left: 250px;
+  }*/
+}
+
+@media (max-width: 1199px) {
+ 
+  #main {
+    margin-left: 0;
+  }
+}

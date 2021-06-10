@@ -1,0 +1,84 @@
+.correctAnswer,
+.wrongAnswer {
+  padding: 20px;
+  color: white;
+  border-radius: 5px;
+}
+
+.correctAnswer,
+.correctAnswers {
+  background: limegreen;
+}
+
+.wrongAnswer,
+.wrongAnswers {
+  background: red;
+}
+
+.wrongAnswer, .correctAnswer{
+  min-height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  text-align: center;
+  font-size: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.results {
+  font-size: 50px;
+  text-align: center;
+}
+
+.correctAnswers,
+.wrongAnswers {
+  text-align: center;
+  padding: 10px;
+}
+
+.question {
+  text-align: center;
+  font-size: 40px;
+}
+
+.test-container {
+  text-align: center;
+  .row{
+   justify-content: center;
+
+    form {
+      text-align: center;
+      padding: 20px;
+      border: 1px solid lightgray;
+      border-radius: 5px;
+      background: #040b14c9;
+  
+      input{
+        width:40%;
+        margin:0 auto;
+      }
+  
+      select{
+        text-align-last: center;
+      }
+    }
+  }
+
+}
+
+main{
+
+  &.correctAnswer{
+    background-color: lime;
+  }
+
+  &.wrongAnswer{
+    background-color: red;
+  }
+}

@@ -1,0 +1,76 @@
+
+<main>
+
+<p style="width: 100px;" *ngIf="!showResults && isTestInProgress"><ngb-progressbar type="success" [value]="questionCounter" [max]="maxTestQuestions" [striped]="true" [animated]="true"><i>{{questionCounter}}/{{maxTestQuestions}}</i></ngb-progressbar></p>
+<p class="question" *ngIf="isTestInProgress">{{questionCounter}}. {{ayat}}</p>
+
+<div *ngIf="showSpeechData && !showResults">
+  <p style="color: white; font-size:40px; text-align: center;">Izgovorili ste: {{speechData}}</p>
+  <p class="correctAnswer" *ngIf="isCurrentQuestionCorrect"></p>
+  <p class="wrongAnswer" *ngIf="!isCurrentQuestionCorrect"></p>
+</div>
+
+<div class="results" *ngIf="showResults && !isTestInProgress">
+  <p>Your score is {{correctAnswers}}/{{maxTestQuestions}}</p>
+<p><ngb-progressbar type="success" [value]="correctAnswers" [max]="maxTestQuestions"></ngb-progressbar></p>
+
+</div>
+
+<!-- new test form-->
+<ng-container>
+  <div class="container test-container" *ngIf="!isTestInProgress && isDataLoaded">
+    <div class="row">
+      <div class="col-xs-12 col-md-6 col-md-offset-3">
+        <form #postForm="ngForm" (ngSubmit)="getAyat(postForm.value)">
+  
+          <div class="form-group">
+            <input
+              type="number"
+              min="1"
+              class="form-control"
+              id="title"
+              ngModel
+              name="sura"
+              placeholder="Broj sure"
+            />
+          </div>
+  
+          <div class="form-group">
+            <input
+              type="number"
+              min="1"
+              class="form-control"
+              id="title"
+              ngModel
+              name="aya"
+              placeholder="Broj ajeta"
+            />
+          </div>
+          <button
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="!postForm.valid"
+          >
+            Start Test
+          </button>
+        </form>
+      </div>
+    </div>
+    <button class="btn btn-info" (click)="wrongAnswersTest()" *ngIf="wrongAnswersTestArray.length>0">Test iz pitanja na koje ste netačno odgovorili</button>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="showResults && !isTestInProgress">
+  <div style="margin-top: 100px;">
+  <div class="wrongAnswers" *ngIf="wrongAnswersArray.length > 0">
+    <h1>Netačni odgovori</h1>
+    <div *ngFor="let wrongAnswer of wrongAnswersArray">
+      <p>{{wrongAnswer}}</p>
+    </div>
+  </div>
+</div>
+</ng-container>
+
+</main>
+
+

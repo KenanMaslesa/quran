@@ -1,0 +1,48 @@
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+body {
+  background: #fff;
+  color: #666666;
+  font-family: "Open Sans", sans-serif;
+  background-size: cover;
+}
+
+/*@font-face {
+  font-family: 'Al Qalam Quran';
+  src: url('AlQalamQuran.woff2') format('woff2'),
+      url('AlQalamQuran.woff') format('woff'),
+      url('AlQalamQuran.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}*/
+
+/*--------------------------------------------------------------
+# Sections General
+--------------------------------------------------------------*/
+section {
+  padding: 60px 0;
+}
+
+.section-bg {
+  background: #f5f8fd;
+}
+
+.section-title h2 {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  padding-bottom: 7px;
+  position: relative;
+  display: inline-block;
+  color: #173b6c;
+}
+
+.section-title p {
+  margin-bottom: 0;
+}
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
