@@ -1,6 +1,6 @@
 
 <main>
-
+<app-loader *ngIf="!isDataLoaded"></app-loader>
 <p style="width: 100px;" *ngIf="!showResults && isTestInProgress"><ngb-progressbar type="success" [value]="questionCounter" [max]="maxTestQuestions" [striped]="true" [animated]="true"><i>{{questionCounter}}/{{maxTestQuestions}}</i></ngb-progressbar></p>
 <p class="question" *ngIf="isTestInProgress">{{questionCounter}}. {{ayat}}</p>
 
