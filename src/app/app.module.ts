@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SpeakingComponent } from './components/speaking/speaking.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { QuranComponent } from './components/quran/quran.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SpeakingComponent,
     LoaderComponent,
+    QuranComponent,
   ],
   imports: [
     BrowserModule,

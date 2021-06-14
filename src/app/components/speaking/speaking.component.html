@@ -1,18 +1,21 @@
 
 <main>
-<app-loader *ngIf="!isDataLoaded"></app-loader>
-<p style="width: 100px;" *ngIf="!showResults && isTestInProgress"><ngb-progressbar type="success" [value]="questionCounter" [max]="maxTestQuestions" [striped]="true" [animated]="true"><i>{{questionCounter}}/{{maxTestQuestions}}</i></ngb-progressbar></p>
-<p class="question" *ngIf="isTestInProgress">{{questionCounter}}. {{ayat}}</p>
+  <button class="btn btn-danger" (click)="finsihTest()" *ngIf="isTestInProgress">Finish test</button>
 
-<div *ngIf="showSpeechData && !showResults">
-  <p style="color: white; font-size:40px; text-align: center;">Izgovorili ste: {{speechData}}</p>
-  <p class="correctAnswer" *ngIf="isCurrentQuestionCorrect"></p>
-  <p class="wrongAnswer" *ngIf="!isCurrentQuestionCorrect"></p>
+<app-loader *ngIf="!isDataLoaded"></app-loader>
+
+<div class="question" *ngIf="isTestInProgress">
+  <!--<p> {{currentAyat}}. {{ayat}}</p>-->
+  <img class="ayat-img" [class.correctAnswer]="isCurrentQuestionCorrect && showSpeechData" [class.wrongAnswer]="!isCurrentQuestionCorrect && showSpeechData" src="http://cdn.alquran.cloud/media/image/{{currentSura}}/{{currentAyat}}" alt="">
+</div>
+
+<div *ngIf="showSpeechData && !showResults && !isCurrentQuestionCorrect">
+  <p style="font-size:40px; text-align: center;">Izgovorili ste: {{speechData}}</p>
 </div>
 
 <div class="results" *ngIf="showResults && !isTestInProgress">
-  <p>Your score is {{correctAnswers}}/{{maxTestQuestions}}</p>
-<p><ngb-progressbar type="success" [value]="correctAnswers" [max]="maxTestQuestions"></ngb-progressbar></p>
+  <p>Your score is {{correctAnswers}}/{{questionCounter}}</p>
+<p><ngb-progressbar type="success" [value]="correctAnswers" [max]="questionCounter"></ngb-progressbar></p>
 
 </div>
 
@@ -21,18 +24,12 @@
   <div class="container test-container" *ngIf="!isTestInProgress && isDataLoaded">
     <div class="row">
       <div class="col-xs-12 col-md-6 col-md-offset-3">
-        <form #postForm="ngForm" (ngSubmit)="getAyat(postForm.value)">
-  
+        <form #postForm="ngForm" (ngSubmit)="onFormSubmit(postForm.value)">
+
           <div class="form-group">
-            <input
-              type="number"
-              min="1"
-              class="form-control"
-              id="title"
-              ngModel
-              name="sura"
-              placeholder="Broj sure"
-            />
+            <select name="sura" *ngIf="listOfSura" ngModel required>
+              <option [ngValue]="sura" *ngFor="let sura of listOfSura">{{sura.tname}}</option>
+            </select>
           </div>
   
           <div class="form-group">
@@ -42,7 +39,8 @@
               class="form-control"
               id="title"
               ngModel
-              name="aya"
+              required
+              name="ayat"
               placeholder="Broj ajeta"
             />
           </div>
@@ -56,7 +54,6 @@
         </form>
       </div>
     </div>
-    <button class="btn btn-info" (click)="wrongAnswersTest()" *ngIf="wrongAnswersTestArray.length>0">Test iz pitanja na koje ste netačno odgovorili</button>
   </div>
 </ng-container>
 

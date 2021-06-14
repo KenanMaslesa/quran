@@ -1,0 +1,15 @@
+<div class="main">
+
+  <div class="form-group">
+    <select name="sura" *ngIf="listOfSura" #surah (change)="onSuraChanged($event.target.value)">
+      <option value="{{sura.ayas}}|{{sura.index}}" *ngFor="let sura of listOfSura">{{sura.tname}}</option>
+    </select>
+  </div>
+
+
+
+  <div *ngFor="let number of numberOfAyats; let i = index">
+    <img (click)="playAyat(indexOfAyahInQuran+i)" class="ayat-img" src="http://cdn.alquran.cloud/media/image/{{currentSura}}/{{i+1}}" alt="">
+  </div>
+
+</div>
