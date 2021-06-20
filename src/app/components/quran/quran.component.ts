@@ -9,47 +9,55 @@ import { QuranService } from 'src/app/services/quran/quran.service';
 export class QuranComponent implements OnInit {
   indexOfAyahInQuran;
   sura;
-  listOfSura;
+  chapters;
+  chapterDetails;
   numberOfAyats = new Array(Number(7));
   currentSura = 1;
+  chapterWords;
+  chapterNumber = 1;
   constructor(private quranService: QuranService) { }
 
   ngOnInit(): void {
-    this.getListOfSura();
-    this.getAyat(1,1);
-  }
-
-  getAyat(sura, ayat){
-    this.quranService
-    .getAyat(sura, ayat)
-    .subscribe((responseData: { result }) => {
-      this.sura = responseData;
-      this.indexOfAyahInQuran = Number(responseData.result.index);
-    });
+    this.getChapters();
+    this.getChapterWords(this.chapterNumber);
+    this.getChapterDetails(this.chapterNumber);
   }
 
   onSuraChanged(number){
     this.indexOfAyahInQuran = null;
-    var ayas = number.split("|")[0];
+    var numberOfAyats = number.split("|")[0];
     var index = number.split("|")[1];
-    this.numberOfAyats = new Array(Number(ayas));
+
+    this.chapterNumber = index;
+    this.getChapterWords(this.chapterNumber);
+    this.getChapterDetails(this.chapterNumber);
+
+    this.numberOfAyats = new Array(Number(numberOfAyats));
     this.currentSura = Number(index);
-    this.getAyat(this.currentSura, 1);
   }
 
-  getListOfSura(){
-    this.quranService.getListOfSura().subscribe(responseData => {
-      this.listOfSura = responseData
+  getChapters(){
+    this.quranService.getChapters().subscribe(responseData => {
+      this.chapters = responseData
     });
   }
 
-  playAyat(ayat){
-    if(ayat == undefined) return;
+  getChapterDetails(chapterNumber){
+    this.quranService.getChapterDetails(chapterNumber).subscribe(responseData => {
+      this.chapterDetails = responseData
+    });
+  }
 
-    var audio, audioPath = 'https://cdn.islamic.network/quran/audio/64/ar.alafasy/';
-    audioPath += ayat +'.mp3';
-    audio = new Audio(audioPath);
+  getChapterWords(chapterNumber){
+    this.quranService.getChapterWords(chapterNumber).subscribe(responseData => this.chapterWords = responseData);
+  }
+
+  playAudio(url){
+    var audioUrl = 'https://audio.qurancdn.com/';
+    audioUrl += url;
+    var audio = new Audio(audioUrl);
     audio.play();
   }
 
+ 
 }

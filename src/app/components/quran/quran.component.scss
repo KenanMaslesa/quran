@@ -1,15 +1,71 @@
-.main{
+.main {
   text-align: center;
   max-height: 97vh;
   overflow-y: auto;
 
-  .ayat-img{
+  .ayat-img {
     cursor: pointer;
     transition: all 0.5s;
 
-    &:hover{
-      filter:sepia(1);
+    &:hover {
+      filter: sepia(1);
       filter: drop-shadow(0px 0px 6px rgba(252, 252, 0, 0.705));
     }
   }
 }
+
+.quran {
+  h1,
+  span {
+    font-family: 'noorehidayatregular';
+    font-family: "p1-v1";
+  }
+
+  span{
+    transition: all 0.3s;
+    &:hover{
+      color: red;
+      cursor: pointer;
+    }
+  }
+}
+
+.arabic{
+  font-family: "p2-v1";
+
+}
+@font-face {
+  font-family: 'noorehidayatregular';
+  src: url('noorehidayat-webfont.woff2') format('woff2'),
+       url('noorehidayat-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+@font-face {
+  font-family: 'p2-v1';
+  src: local(QCF_P002),
+  url('https://cdn.qurancdn.com/assets/quran_fonts/v1/woff2/p2-b98090bbe648e369732764351f07e06f22f9bfca10ebfc7653d8d195a87c3961.woff2') format('woff2'),
+  url('https://cdn.qurancdn.com/assets/quran_fonts/v1/woff/p2-605d059d30a0a0d674aca15b0ecf2ca2e56f49c3d6dafa15ad49445113f1d7e5.woff') format('woff'),
+  url('https://cdn.qurancdn.com/assets/quran_fonts/v1/ttf/p2-f7fc41791b5bf747eea1913461ec497050b699401f9e8879d7bbba57c20041ac.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'p3-v1';
+  src: local(QCF_P003),
+  url('https://cdn.qurancdn.com/assets/quran_fonts/v1/woff2/p3-98502f8d17ff0f79fa4d78d693f40f63fb4a1d9b756ef6b7742dcf11cf4ce00e.woff2') format('woff2'),
+  url('https://cdn.qurancdn.com/assets/quran_fonts/v1/woff/p3-9293dd33987a4d48474454bcac70f3086eebafe2844cb60aa590efe3e4ef208d.woff') format('woff'),
+  url('https://cdn.qurancdn.com/assets/quran_fonts/v1/ttf/p3-5f150f5595fb64b3148e833cc53a3895b6e07722b8203768b896f6ebceeb36eb.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'p1-v1';
+  src: local(QCF_P001),
+  url('https://cdn.qurancdn.com/assets/quran_fonts/v1/woff2/p1-fef387a1551fc2be17bc673844f7fc6fb7c2801799d5409ea349ea75cefb987f.woff2') format('woff2'),
+  url('https://cdn.qurancdn.com/assets/quran_fonts/v1/woff/p1-8696f4a054599301793b224cd3a6c50f2936cf816b8c750c6ced0fc17a81a39f.woff') format('woff'),
+  url('https://cdn.qurancdn.com/assets/quran_fonts/v1/ttf/p1-2ddf21ab6285a363cf0ee9bc9f5b71c86dcf716e01325b07e92b752b4d4f0648.ttf') format('truetype');
+  font-display: swap;
+}
+

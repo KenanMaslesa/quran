@@ -7,11 +7,9 @@ import { quranResponseData } from 'src/app/models/quran.model';
   providedIn: 'root'
 })
 export class QuranService {
+  quranApi = "https://api.quran.com/api/v4";
 
   constructor(private http: HttpClient) { }
-  //http://api.quran.com/api/v3/chapters/2/verses/2
-  //http://quranapi.azurewebsites.net/api/chapter/2?startVerse=2&endVerse=2
-//https://salamquran.com/en/api/v6/sura?index=2&start=10&limit=1
   getAyat(sura,ayat){
     return this.http.get(`https://salamquran.com/en/api/v6/sura?index=${sura}&start=${ayat}&limit=1`).pipe();
   }
@@ -29,5 +27,21 @@ export class QuranService {
         return suraArray;
       }
     ));
+  }
+
+  getChapters(){ //sure
+    return this.http.get(`${this.quranApi}/chapters?language=en`).pipe();
+  }
+
+  getChapterDetails(chapterNumber){
+    return this.http.get(`${this.quranApi}/chapters/${chapterNumber}/info?language=en`).pipe();
+  }
+
+  getChapterWords(chapterNumber, recitationId = 7){
+    return this.http.get(`${this.quranApi}/verses/by_chapter/${chapterNumber}?words=true&translations=126&audio=${recitationId}`).pipe();
+  }
+
+  getRecitations(){
+    return this.http.get(`${this.quranApi}/resources/recitations?language=en`).pipe();
   }
 }

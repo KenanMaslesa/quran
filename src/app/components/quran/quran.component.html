@@ -1,15 +1,21 @@
 <div class="main">
 
   <div class="form-group">
-    <select name="sura" *ngIf="listOfSura" #surah (change)="onSuraChanged($event.target.value)">
-      <option value="{{sura.ayas}}|{{sura.index}}" *ngFor="let sura of listOfSura">{{sura.tname}}</option>
+    <select name="sura" *ngIf="chapters" #surah (change)="onSuraChanged($event.target.value)">
+      <option value="{{sura.verses_count}}|{{sura.id}}" *ngFor="let sura of chapters.chapters">{{sura.name_simple}} - {{sura.name_arabic}}</option>
     </select>
   </div>
 
+  <ng-container *ngIf="chapterWords">
+    <div class="quran">
+      <h1 *ngFor="let verse of chapterWords.verses">
+        <img src="assets/images/play.png" alt="play" (click)="playAudio(verse.audio.url)">
+        <span *ngFor="let word of verse.words" (click)="playAudio(word.audio_url)" ngbPopover="{{word.translation.text}}" triggers="mouseenter:mouseleave">
+          {{word.code_v1}}
+        </span>
+      </h1>
+    </div>
+  </ng-container>
 
-
-  <div *ngFor="let number of numberOfAyats; let i = index">
-    <img (click)="playAyat(indexOfAyahInQuran+i)" class="ayat-img" src="http://cdn.alquran.cloud/media/image/{{currentSura}}/{{i+1}}" alt="">
-  </div>
 
 </div>
