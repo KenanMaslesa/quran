@@ -14,7 +14,8 @@ export class QuranComponent implements OnInit {
   numberOfAyats = new Array(Number(7));
   currentSura = 1;
   chapterWords;
-  chapterNumber = 1;
+  chapterNumber = 2;
+  currentPage = 1;
   constructor(private quranService: QuranService) { }
 
   ngOnInit(): void {
@@ -49,7 +50,11 @@ export class QuranComponent implements OnInit {
   }
 
   getChapterWords(chapterNumber){
-    this.quranService.getChapterWords(chapterNumber).subscribe(responseData => this.chapterWords = responseData);
+    this.quranService.getChapterWords(chapterNumber, this.currentPage).subscribe(responseData => this.chapterWords = responseData);
+  }
+
+  getPage(pageNumber){
+    this.quranService.getPage(pageNumber).subscribe(responseData => this.chapterWords = responseData);
   }
 
   playAudio(url){

@@ -37,8 +37,12 @@ export class QuranService {
     return this.http.get(`${this.quranApi}/chapters/${chapterNumber}/info?language=en`).pipe();
   }
 
-  getChapterWords(chapterNumber, recitationId = 7){
-    return this.http.get(`${this.quranApi}/verses/by_chapter/${chapterNumber}?words=true&translations=126&audio=${recitationId}`).pipe();
+  getChapterWords(chapterNumber, page, recitationId = 7){
+    return this.http.get(`${this.quranApi}/verses/by_chapter/${chapterNumber}?words=true&translations=126&audio=${recitationId}&page=3`).pipe();
+  }
+
+  getPage(pageNumber, recitationId = 7){
+    return this.http.get(`${this.quranApi}/verses/by_page/${pageNumber}?language=en&words=true&translations=126&audio=${recitationId}`).pipe();
   }
 
   getRecitations(){

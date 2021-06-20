@@ -5,12 +5,14 @@
 <app-loader *ngIf="!isDataLoaded"></app-loader>
 
 <div class="question" *ngIf="isTestInProgress">
-  <!--<p> {{currentAyat}}. {{ayat}}</p>-->
-  <img class="ayat-img" [class.correctAnswer]="isCurrentQuestionCorrect && showSpeechData" [class.wrongAnswer]="!isCurrentQuestionCorrect && showSpeechData" src="http://cdn.alquran.cloud/media/image/{{currentSura}}/{{currentAyat}}" alt="">
+  <p style="font-family: 'me-quran';" [class.correctAnswer]="isCurrentQuestionCorrect && showSpeechData" [class.wrongAnswer]="!isCurrentQuestionCorrect && showSpeechData"> {{currentAyat}}. {{ayat}}</p>
+  <!--<img class="ayat-img" [class.correctAnswer]="isCurrentQuestionCorrect && showSpeechData" [class.wrongAnswer]="!isCurrentQuestionCorrect && showSpeechData" src="http://cdn.alquran.cloud/media/image/{{currentSura}}/{{currentAyat}}" alt="">-->
 </div>
 
-<div *ngIf="showSpeechData && !showResults && !isCurrentQuestionCorrect">
-  <p style="font-size:40px; text-align: center;">Izgovorili ste: {{speechData}}</p>
+<div *ngIf="showSpeechData && !showResults && !isCurrentQuestionCorrect" style="text-align: center;">
+  <p style="font-size:40px; text-align: center; font-family: 'me-quran';">Izgovorili ste: {{speechData}}</p>
+  <button style="margin-right: 5px;" class="btn btn-warning" (click)="repeatAyat()">Ponovi ajet</button>
+  <button class="btn btn-success" (click)="nextAyat()">Sljedeći ajet</button>
 </div>
 
 <div class="results" *ngIf="showResults && !isTestInProgress">
@@ -58,14 +60,12 @@
 </ng-container>
 
 <ng-container *ngIf="showResults && !isTestInProgress">
-  <div style="margin-top: 100px;">
   <div class="wrongAnswers" *ngIf="wrongAnswersArray.length > 0">
     <h1>Netačni odgovori</h1>
     <div *ngFor="let wrongAnswer of wrongAnswersArray">
       <p>{{wrongAnswer}}</p>
     </div>
   </div>
-</div>
 </ng-container>
 
 </main>

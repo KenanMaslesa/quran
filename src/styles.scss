@@ -8,15 +8,6 @@ body {
   background-size: cover;
 }
 
-/*@font-face {
-  font-family: 'Al Qalam Quran';
-  src: url('AlQalamQuran.woff2') format('woff2'),
-      url('AlQalamQuran.woff') format('woff'),
-      url('AlQalamQuran.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}*/
 
 /*--------------------------------------------------------------
 # Sections General
@@ -46,3 +37,9 @@ section {
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
+@font-face {
+  font-family: 'me-quran';
+  src: 
+  url('assets/quran_fonts/me_quran/me_quran_volt_newmet.ttf') format('truetype');
+  font-display: swap;
+}

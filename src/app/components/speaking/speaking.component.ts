@@ -49,7 +49,10 @@ export class SpeakingComponent implements OnInit {
     this.speechRecognitionService.DestroySpeechObject();
   }
 
-  onFormSubmit(postData: { sura: {ayas:number, index:number}; ayat: number }) {
+  onFormSubmit(postData: {
+    sura: { ayas: number; index: number };
+    ayat: number;
+  }) {
     this.currentAyat = postData.ayat;
     this.currentSura = Number(postData.sura.index);
     this.numberOfAyats = Number(postData.sura.ayas);
@@ -61,30 +64,30 @@ export class SpeakingComponent implements OnInit {
     this.questionCounter = 0;
 
     this.getAyat(this.currentSura, this.currentAyat);
-   
   }
 
-  getAyat(sura, ayat){
+  getAyat(sura, ayat) {
     this.isDataLoaded = false;
 
     this.quranService
-    .getAyat(sura, ayat)
-    .subscribe((responseData: { result }) => {
-      this.isDataLoaded = true;
-      this.indexOfAyahInQuran = Number(responseData.result.index);
-      this.ayat = responseData.result.text;
-      this.phrases = responseData.result.simple;
-      this.questionCounter++;
-      this.startTest();
-    });
+      .getAyat(sura, ayat)
+      .subscribe((responseData: { result }) => {
+        this.isDataLoaded = true;
+        this.indexOfAyahInQuran = Number(responseData.result.index);
+        this.ayat = responseData.result.text;
+        this.phrases = responseData.result.simple;
+        this.questionCounter++;
+        this.startTest();
+      });
   }
 
-  getListOfSura(){
-    this.quranService.getListOfSura().subscribe(responseData => this.listOfSura = responseData);
+  getListOfSura() {
+    this.quranService
+      .getListOfSura()
+      .subscribe((responseData) => (this.listOfSura = responseData));
   }
 
   startTest(): void {
-
     this.showSpeechData = false;
     this.isTestInProgress = true;
     this.showResults = false;
@@ -98,36 +101,21 @@ export class SpeakingComponent implements OnInit {
 
         var speechValue = value.split(' ').join('');
         var valueFromAPI = this.removeHarekah(this.phrases);
-          
 
         if (valueFromAPI == speechValue) {
           this.correctAnswers++;
           this.isCurrentQuestionCorrect = true;
-          this.correctAnswersArray.push(
-            this.phrases + ' -> vaš odgovor: ' + value
-          );
-          setTimeout(() => {
-            this.currentAyat ++;
-            if(this.currentAyat > this.numberOfAyats){
-              this.finsihTest();
-              return;
-            }
-            else{
-              this.getAyat(this.currentSura, this.currentAyat);
-            }
-          }, 1000);
-        } else {
-          this.wrongAnswers++;
-          this.wrongAnswersArray.push(
-            'Ajet: '+valueFromAPI + ' -> vaš odgovor: ' + speechValue
-          );
 
           setTimeout(() => {
-            this.getAyat(this.currentSura, this.currentAyat);
-            this.wrongAnswersTestArray.push(this.phrases[this.questionNumber]);
-          }, 5000);
+            this.nextAyat();
+          }, 1000);
+        } 
+        else {
+          this.wrongAnswers++;
+          this.wrongAnswersArray.push(
+            'Ajet: ' + this.phrases + ' -> vaš odgovor: ' + value
+          );
         }
-      
       },
       (err) => {
         alert(err.error);
@@ -146,26 +134,26 @@ export class SpeakingComponent implements OnInit {
     );
   }
 
-
   wrongAnswersTest() {
     this.correctAnswers = 0;
     this.wrongAnswers = 0;
     //this.phrases = this.wrongAnswersTestArray;
   }
 
-  removeHarekah(text){
-    return text.split('أ')
-          .join('ا')
-          .split('إ')
-          .join('ا')
-          .split('لآ')
-          .join('لا')
-          .split('ة')
-          .join('ه')
-          .split('آ')
-          .join('ا')
-          .split(' ')
-          .join('');
+  removeHarekah(text) {
+    return text
+      .split('أ')
+      .join('ا')
+      .split('إ')
+      .join('ا')
+      .split('لآ')
+      .join('لا')
+      .split('ة')
+      .join('ه')
+      .split('آ')
+      .join('ا')
+      .split(' ')
+      .join('');
   }
 
   finsihTest() {
@@ -173,5 +161,20 @@ export class SpeakingComponent implements OnInit {
     this.showResults = true;
     this.isTestInProgress = false;
     this.speechRecognitionService.DestroySpeechObject();
+  }
+
+  nextAyat() {
+    this.currentAyat++;
+
+    if (this.currentAyat > this.numberOfAyats) {
+      this.finsihTest();
+    } 
+    else {
+      this.getAyat(this.currentSura, this.currentAyat);
+    }
+  }
+
+  repeatAyat() {
+    this.getAyat(this.currentSura, this.currentAyat);
   }
 }
