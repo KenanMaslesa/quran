@@ -99,7 +99,6 @@ export class QuranComponent implements OnInit {
   }
 
   playAyat(url, ayah, ayahID) {
-    debugger;
     if (this.audio) {
       if (!this.audio.paused) {
         this.audio.pause();
@@ -117,7 +116,6 @@ export class QuranComponent implements OnInit {
     var self = this;
     audio.onended = function () {
       self.manageClassesOfAyats(ayahID, 'remove');
-      debugger;
       ayah = Number(ayah) + 1;
       ayahID = ayahID.substring(0,ayahID.indexOf("-"));
       ayahID = ayahID + '-' + ayah;
@@ -152,12 +150,10 @@ export class QuranComponent implements OnInit {
   }
 
   getAudioOfAyah(number, v) {
-    debugger
     var stringNumber = String(number);
     var url = '';
     var verse = v.replace('-', ':');
     this.words.result.forEach((ayah) => {
-      debugger
       if(ayah.word){
         ayah.word.forEach(element => {
           if (element.verse_key == verse) {
