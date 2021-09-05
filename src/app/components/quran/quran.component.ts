@@ -45,18 +45,18 @@ export class QuranComponent implements OnInit {
   getSuraWordsByPage(page) {
     this.quranService.getSuraWordsByPage(page).subscribe((response) => {
       this.words = response;
-      debugger
       this.setCurrentPage(response);
-      this.getAudioOfAyah(1);
+      this.getAudioOfAyah(1,1);
     });
   }
 
-  setCurrentPage(list){
+  setCurrentPage(list) {
     var temPage;
-    list.result.forEach(element => {
+    list.result.forEach((element) => {
       temPage = Number(element.detail.page);
-      if(temPage > 0){
+      if (temPage > 0) {
         this.page = temPage;
+        return;
       }
     });
   }
@@ -98,33 +98,38 @@ export class QuranComponent implements OnInit {
     audio.play();
   }
 
-  playAyat(url, ayaId) {
-    if(this.audio){
-      if(!this.audio.paused){
+  playAyat(url, ayah, ayahID) {
+    debugger;
+    if (this.audio) {
+      if (!this.audio.paused) {
         this.audio.pause();
         this.manageClassesOfAyats(this.previousAyah, 'remove');
       }
     }
-    var audio = new Audio(url);
+    var audio = new Audio(url.audio);
     this.audio = audio;
-    this.previousAyah = ayaId;
+    this.previousAyah = ayah;
     this.removeActiveClasses();
-    this.manageClassesOfAyats(ayaId, 'add');
+    ayahID = ayahID.replace('-' + '.*', '-' + ayah);
+    this.manageClassesOfAyats(ayahID, 'add');
     audio.play();
 
     var self = this;
     audio.onended = function () {
-      self.manageClassesOfAyats(ayaId, 'remove');
-      ayaId = Number(ayaId) + 1;
-      audio.src = self.getAudioOfAyah(ayaId);
+      self.manageClassesOfAyats(ayahID, 'remove');
+      debugger;
+      ayah = Number(ayah) + 1;
+      ayahID = ayahID.substring(0,ayahID.indexOf("-"));
+      ayahID = ayahID + '-' + ayah;
+      audio.src = self.getAudioOfAyah(ayah, ayahID);
       self.removeActiveClasses();
-      self.manageClassesOfAyats(ayaId, 'add');
+      self.manageClassesOfAyats(ayahID, 'add');
       audio.play();
-
     };
   }
 
   manageClassesOfAyats(ayaId, action) {
+    ayaId = ayaId.replace(':', '-');
     var activeAyats = document.querySelectorAll('.aya' + ayaId);
     activeAyats.forEach((aya) => {
       if (action == 'add') {
@@ -139,20 +144,28 @@ export class QuranComponent implements OnInit {
     });
   }
 
-  removeActiveClasses(){
+  removeActiveClasses() {
     var activeAyats = document.querySelectorAll('.ayeLine i');
     activeAyats.forEach((aya) => {
-        aya.classList.remove('active');
+      aya.classList.remove('active');
     });
   }
 
-  getAudioOfAyah(number) {
+  getAudioOfAyah(number, v) {
+    debugger
     var stringNumber = String(number);
     var url = '';
+    var verse = v.replace('-', ':');
     this.words.result.forEach((ayah) => {
-      if (ayah.detail.aya == stringNumber) {
-        url = ayah.detail.audio;
+      debugger
+      if(ayah.word){
+        ayah.word.forEach(element => {
+          if (element.verse_key == verse) {
+            url = element.audio;
+          }
+        });
       }
+      
     });
     return url;
   }

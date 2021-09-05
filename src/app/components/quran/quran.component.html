@@ -58,13 +58,13 @@
         <ng-container *ngFor="let word of item.word">
 
           <i *ngIf="word.char_type != 'end'"
-            class="{{word.class_name}} aya{{word.aya}}"  id="w{{word.audio_key}}" [innerHtml]="word.code"
+            class="{{word.class_name}} aya{{word.verse_key.replace(':', '-')}}"  id="w{{word.audio_key}}" [innerHtml]="word.code"
             (click)="playWord(word.audio)" ngbPopover="{{word.translation}}" triggers="mouseenter:mouseleave"></i>
 
-            <i *ngIf="word.char_type == 'end'" class="{{word.class_name}} aya{{word.aya}}"
-              id="w{{word.audio_key}}" [innerHtml]="word.code" (click)="playAyat(word.audio, word.aya)"
-              (mouseover)="manageClassesOfAyats(word.aya, 'mouseover')"
-              (mouseleave)="manageClassesOfAyats(word.aya, 'mouseleave')"
+            <i *ngIf="word.char_type == 'end'" class="{{word.class_name}} aya{{word.verse_key.replace(':', '-')}}"
+              id="w{{word.audio_key}}" [innerHtml]="word.code" (click)="playAyat(word, word.aya, word.verse_key.replace(':', '-'))"
+              (mouseover)="manageClassesOfAyats(word.verse_key, 'mouseover')"
+              (mouseleave)="manageClassesOfAyats(word.verse_key, 'mouseleave')"
               ngbPopover="play {{word.aya}}. ayah" triggers="mouseenter:mouseleave"></i>
 
         </ng-container>
