@@ -2,20 +2,22 @@
 
   <div class="form-group">
     <select name="sura" *ngIf="chapters" #surah (change)="onSuraChanged($event.target.value)">
-      <option value="{{sura.verses_count}}|{{sura.id}}" *ngFor="let sura of chapters.chapters">{{sura.name_simple}} - {{sura.name_arabic}}</option>
+      <option value="{{sura.id}}" *ngFor="let sura of chapters.chapters">{{sura.name_simple}} - {{sura.name_arabic}}</option>
     </select>
   </div>
 
-  <ng-container *ngIf="chapterWords">
-    <div class="quran">
-      <h1 *ngFor="let verse of chapterWords.verses">
-        <img src="assets/images/play.png" alt="play" (click)="playAudio(verse.audio.url)">
-        <span *ngFor="let word of verse.words" (click)="playAudio(word.audio_url)" ngbPopover="{{word.translation.text}}" triggers="mouseenter:mouseleave">
-          {{word.code_v1}}
-        </span>
-      </h1>
+  <div  dir="rtl" lang="ar">
+  
+    <ng-container *ngFor="let item of words.result; let i = index">
+    <section class="suraTitle" *ngIf="i == 0">
+      <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">
+      <h3>{{item.detail.name}} - <span>{{item.detail.tname}}</span></h3>
+    </section>
+  
+    <div class="ayeLine" *ngIf="item.word">
+      <i class="{{word.class_name}}" *ngFor="let word of item.word" data-i="{{word.id}}" id="w{{word.audio_key}}" [innerHtml]="word.code"
+      (click)="playAudio(word.audio)" ngbPopover="{{word.translation}}" triggers="mouseenter:mouseleave"></i>
     </div>
   </ng-container>
-
-
+  </div>
 </div>

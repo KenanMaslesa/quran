@@ -16,25 +16,22 @@ export class QuranComponent implements OnInit {
   chapterWords;
   chapterNumber = 2;
   currentPage = 1;
+  words;
   constructor(private quranService: QuranService) { }
 
   ngOnInit(): void {
     this.getChapters();
     this.getChapterWords(this.chapterNumber);
     this.getChapterDetails(this.chapterNumber);
+    this.quranService.getSuraWords(1).subscribe(response => {
+      this.words = response;
+    })
   }
 
   onSuraChanged(number){
-    this.indexOfAyahInQuran = null;
-    var numberOfAyats = number.split("|")[0];
-    var index = number.split("|")[1];
-
-    this.chapterNumber = index;
-    this.getChapterWords(this.chapterNumber);
-    this.getChapterDetails(this.chapterNumber);
-
-    this.numberOfAyats = new Array(Number(numberOfAyats));
-    this.currentSura = Number(index);
+    this.quranService.getSuraWords(number).subscribe(response => {
+      this.words = response;
+    })
   }
 
   getChapters(){
@@ -59,6 +56,7 @@ export class QuranComponent implements OnInit {
 
   playAudio(url){
     var audioUrl = 'https://audio.qurancdn.com/';
+    audioUrl = 'https://dl.salamquran.com/wbw/';
     audioUrl += url;
     var audio = new Audio(audioUrl);
     audio.play();
