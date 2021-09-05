@@ -8,7 +8,7 @@ import { quranResponseData } from 'src/app/models/quran.model';
 })
 export class QuranService {
   quranApi = "https://api.quran.com/api/v4";
-
+//https://salamquran.com/api/v6/doc
   constructor(private http: HttpClient) { }
   getAyat(sura,ayat){
     return this.http.get(`https://salamquran.com/en/api/v6/sura?index=${sura}&start=${ayat}&limit=1`).pipe();

@@ -71,18 +71,18 @@ export class QuranComponent implements OnInit {
   }
 
   playAyat(url, ayaId){
-    this.manageActiveClassesOfAyats(ayaId, 'add');
+    this.manageClassesOfAyats(ayaId, 'add');
 
     var audio = new Audio(url);
     audio.play();
   
     var self = this;
     audio.onended = function() {
-         self.manageActiveClassesOfAyats(ayaId, 'remove');
+         self.manageClassesOfAyats(ayaId, 'remove');
   };
   }
 
-  manageActiveClassesOfAyats(ayaId, action){
+  manageClassesOfAyats(ayaId, action){
     var activeAyats = document.querySelectorAll('.aya'+ayaId);
     activeAyats.forEach(aya => {
       if(action == 'add'){
