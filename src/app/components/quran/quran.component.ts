@@ -70,9 +70,34 @@ export class QuranComponent implements OnInit {
     audio.play();
   }
 
-  playAyat(url){
+  playAyat(url, ayaId){
+    this.manageActiveClassesOfAyats(ayaId, 'add');
+
     var audio = new Audio(url);
     audio.play();
+  
+    var self = this;
+    audio.onended = function() {
+         self.manageActiveClassesOfAyats(ayaId, 'remove');
+  };
+  }
+
+  manageActiveClassesOfAyats(ayaId, action){
+    var activeAyats = document.querySelectorAll('.aya'+ayaId);
+    activeAyats.forEach(aya => {
+      if(action == 'add'){
+        aya.classList.add('active');
+      }
+      else if(action == 'remove'){
+        aya.classList.remove('active');
+      }
+      else if(action == 'mouseover'){
+        aya.classList.add('hover');
+      }
+      else if(action == 'mouseleave'){
+        aya.classList.remove('hover');
+      }
+    });
   }
 
  
