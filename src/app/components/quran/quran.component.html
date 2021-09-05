@@ -1,24 +1,34 @@
-<div class="main">
+<div class="main" *ngIf="words">
 
   <div class="form-group">
     <select name="sura" *ngIf="chapters" #surah (change)="onSuraChanged($event.target.value)">
-      <option value="{{sura.id}}" *ngFor="let sura of chapters.chapters">{{sura.name_simple}} - {{sura.name_arabic}}</option>
+      <option value="{{sura.id}}" *ngFor="let sura of chapters.chapters">{{sura.name_simple}} - {{sura.name_arabic}}
+      </option>
     </select>
   </div>
 
-  <div  dir="rtl" lang="ar">
-  
+  <div dir="rtl" lang="ar">
+
     <ng-container *ngFor="let item of words.result; let i = index">
-    <section class="suraTitle" *ngIf="i == 0 && !item.word">
-      <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">
-      <h3>{{item.detail.name}} - <span>{{item.detail.tname}}</span></h3>
-    </section>
-  
-    <div class="ayeLine" *ngIf="item.word">
-      <i class="{{word.class_name}}" *ngFor="let word of item.word" data-i="{{word.id}}" id="w{{word.audio_key}}" [innerHtml]="word.code"
-      (click)="playAudio(word.audio)" ngbPopover="{{word.translation}}" triggers="mouseenter:mouseleave"></i>
-    </div>
-  </ng-container>
+      <section class="suraTitle" *ngIf="i == 0 && !item.word">
+        <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">
+        <h3>{{item.detail.name}} - <span>{{item.detail.tname}}</span></h3>
+      </section>
+
+      <div class="ayeLine" *ngIf="item.word">
+        <ng-container *ngFor="let word of item.word">
+
+          <i *ngIf="word.char_type != 'end'"
+            class="{{word.class_name}}" data-i="{{word.id}}" id="w{{word.audio_key}}" [innerHtml]="word.code"
+            (click)="playWord(word.audio)" ngbPopover="{{word.translation}}" triggers="mouseenter:mouseleave"></i>
+
+            <i *ngIf="word.char_type == 'end'" class="{{word.class_name}}" data-i="{{word.id}}"
+              id="w{{word.audio_key}}" [innerHtml]="word.code" (click)="playAyat(word.audio)"
+              ngbPopover="{{word.verse_title}}" triggers="mouseenter:mouseleave"></i>
+
+        </ng-container>
+      </div>
+    </ng-container>
   </div>
 
   <div class="indicators">
