@@ -63,11 +63,15 @@ export class QuranComponent implements OnInit {
     this.quranService.getPage(pageNumber).subscribe(responseData => this.chapterWords = responseData);
   }
 
-  playAudio(url){
-    var audioUrl = 'https://audio.qurancdn.com/';
-    audioUrl = 'https://dl.salamquran.com/wbw/';
+  playWord(url){
+    var audioUrl = 'https://dl.salamquran.com/wbw/';
     audioUrl += url;
     var audio = new Audio(audioUrl);
+    audio.play();
+  }
+
+  playAyat(url){
+    var audio = new Audio(url);
     audio.play();
   }
 

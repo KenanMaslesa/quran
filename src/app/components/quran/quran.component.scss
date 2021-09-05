@@ -44,7 +44,7 @@ i{
     height: 30px;
   }
 
-  &:hover{
+  &:hover, &.active{
     color: #07b7dd;
   }
 }
