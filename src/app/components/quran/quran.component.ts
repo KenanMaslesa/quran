@@ -18,6 +18,7 @@ export class QuranComponent implements OnInit {
   currentPage = 1;
   words;
   page = 1;
+  suraTitle = '';
   constructor(private quranService: QuranService) { }
 
   ngOnInit(): void {
@@ -30,6 +31,15 @@ export class QuranComponent implements OnInit {
 
   onSuraChanged(number){
     this.getSuraWordsByPage(number);
+  }
+
+  setSuraTitle(title:string){
+    if(title.indexOf('undefined')>-1){
+      return this.suraTitle;
+    }
+    else{
+      return this.suraTitle  = title;
+    }
   }
 
   getSuraWordsByPage(page){

@@ -10,9 +10,9 @@
   <div dir="rtl" lang="ar">
 
     <ng-container *ngFor="let item of words.result; let i = index">
-      <section class="suraTitle" *ngIf="i == 0 && !item.word">
+      <section class="suraTitle" *ngIf="i == 0">
         <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">
-        <h3>{{item.detail.name}} - <span>{{item.detail.tname}}</span></h3>
+        <h3>{{setSuraTitle(item.detail.name + ' - '+ item.detail.tname)}}</h3>
       </section>
 
       <div class="ayeLine" *ngIf="item.word">
