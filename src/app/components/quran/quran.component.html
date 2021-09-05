@@ -9,7 +9,7 @@
   <div  dir="rtl" lang="ar">
   
     <ng-container *ngFor="let item of words.result; let i = index">
-    <section class="suraTitle" *ngIf="i == 0">
+    <section class="suraTitle" *ngIf="i == 0 && !item.word">
       <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">
       <h3>{{item.detail.name}} - <span>{{item.detail.tname}}</span></h3>
     </section>
@@ -19,5 +19,10 @@
       (click)="playAudio(word.audio)" ngbPopover="{{word.translation}}" triggers="mouseenter:mouseleave"></i>
     </div>
   </ng-container>
+  </div>
+
+  <div class="indicators">
+    <button class="btn" (click)="changePage(page + 1)">Next</button>
+    <button class="btn" [disabled]="page == 1" (click)="changePage(page - 1)">Previous</button>
   </div>
 </div>

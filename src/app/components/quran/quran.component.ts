@@ -17,21 +17,30 @@ export class QuranComponent implements OnInit {
   chapterNumber = 2;
   currentPage = 1;
   words;
+  page = 1;
   constructor(private quranService: QuranService) { }
 
   ngOnInit(): void {
     this.getChapters();
     this.getChapterWords(this.chapterNumber);
     this.getChapterDetails(this.chapterNumber);
-    this.quranService.getSuraWords(1).subscribe(response => {
+    this.getSuraWordsByPage(this.page);
+
+  }
+
+  onSuraChanged(number){
+    this.getSuraWordsByPage(number);
+  }
+
+  getSuraWordsByPage(page){
+    this.quranService.getSuraWords(page).subscribe(response => {
       this.words = response;
     })
   }
 
-  onSuraChanged(number){
-    this.quranService.getSuraWords(number).subscribe(response => {
-      this.words = response;
-    })
+  changePage(page){
+    this.page = page;
+    this.getSuraWordsByPage(page);
   }
 
   getChapters(){

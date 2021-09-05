@@ -13,6 +13,15 @@
     }
   }
 }
+
+.indicators{
+  .btn{
+    background: #d9c3a7;
+    color: white;
+    margin-right: 10px;
+    min-width: 85px;
+  }
+  }
 .ayeLine {
 i{
   font-weight: 400;
@@ -7978,7 +7987,7 @@ html[lang="ar"] #soreha .c7 span {
   padding: 4px 0;
   border: 1px solid transparent;
   border-radius: .25rem;
-  background-color: #f7f7f7;
+  //background-color: #f7f7f7;
   color: #000;
   min-height: 60px
 }
