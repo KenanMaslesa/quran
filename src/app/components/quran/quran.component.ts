@@ -19,6 +19,7 @@ export class QuranComponent implements OnInit {
   words;
   page = 1;
   suraTitle = '';
+  audio;
   constructor(private quranService: QuranService) {}
 
   ngOnInit(): void {
@@ -88,12 +89,14 @@ export class QuranComponent implements OnInit {
   playAyat(url, ayaId) {
     debugger;
     this.manageClassesOfAyats(ayaId, 'add');
-    if(audio){
-      if(!audio.paused){
-        audio.pause();
+    if(this.audio){
+      if(!this.audio.paused){
+        this.audio.pause();
+        this.manageClassesOfAyats(ayaId, 'remove');
       }
     }
     var audio = new Audio(url);
+    this.audio = audio;
     audio.play();
 
     var self = this;
