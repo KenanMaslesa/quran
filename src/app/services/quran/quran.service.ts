@@ -18,8 +18,8 @@ export class QuranService {
     return this.http.get(`https://salamquran.com/en/api/v6/sura?index=${sura}`).pipe();
   }
 
-  getSuraWords(sura){
-    return this.http.get(`https://salamquran.com/en/api/v6/page/wbw?index=${sura}`).pipe();
+  getSuraWordsByPage(page){
+    return this.http.get(`https://salamquran.com/en/api/v6/page/wbw?index=${page}`).pipe();
   }
 
   getListOfSura(){

@@ -33,7 +33,7 @@ export class QuranComponent implements OnInit {
   }
 
   getSuraWordsByPage(page){
-    this.quranService.getSuraWords(page).subscribe(response => {
+    this.quranService.getSuraWordsByPage(page).subscribe(response => {
       this.words = response;
     })
   }
