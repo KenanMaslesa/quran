@@ -45,10 +45,21 @@ export class QuranComponent implements OnInit {
   getSuraWordsByPage(page) {
     this.quranService.getSuraWordsByPage(page).subscribe((response) => {
       this.words = response;
+      debugger
+      this.setCurrentPage(response);
       this.getAudioOfAyah(1);
     });
   }
 
+  setCurrentPage(list){
+    var temPage;
+    list.result.forEach(element => {
+      temPage = Number(element.detail.page);
+      if(temPage > 0){
+        this.page = temPage;
+      }
+    });
+  }
   changePage(page) {
     this.page = page;
     this.getSuraWordsByPage(page);
