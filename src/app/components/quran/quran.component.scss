@@ -37,6 +37,13 @@ i{
   outline: none;
   cursor: pointer;
 
+  @media(max-width: 768px){
+    font-size: 20px;
+    padding-left: 2px;
+    line-height: 29px;
+    height: 30px;
+  }
+
   &:hover{
     color: #07b7dd;
   }
@@ -7989,7 +7996,11 @@ html[lang="ar"] #soreha .c7 span {
   border-radius: .25rem;
   //background-color: #f7f7f7;
   color: #000;
-  min-height: 60px
+  min-height: 60px;
+
+  @media(max-width: 768px){
+    min-height: 40px;
+  }
 }
 
 
