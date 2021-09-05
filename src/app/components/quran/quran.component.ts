@@ -4,7 +4,7 @@ import { QuranService } from 'src/app/services/quran/quran.service';
 @Component({
   selector: 'app-quran',
   templateUrl: './quran.component.html',
-  styleUrls: ['./quran.component.scss']
+  styleUrls: ['./quran.component.scss'],
 })
 export class QuranComponent implements OnInit {
   indexOfAyahInQuran;
@@ -19,96 +19,120 @@ export class QuranComponent implements OnInit {
   words;
   page = 1;
   suraTitle = '';
-  constructor(private quranService: QuranService) { }
+  constructor(private quranService: QuranService) {}
 
   ngOnInit(): void {
     this.getChapters();
     this.getChapterWords(this.chapterNumber);
     this.getChapterDetails(this.chapterNumber);
     this.getSuraWordsByPage(this.page);
-
   }
 
-  onSuraChanged(number){
+  onSuraChanged(number) {
     this.getSuraWordsByPage(number);
   }
 
-  setSuraTitle(title:string){
-    if(title.indexOf('undefined')>-1){
+  setSuraTitle(title: string) {
+    if (title.indexOf('undefined') > -1) {
       return this.suraTitle;
-    }
-    else{
-      return this.suraTitle  = title;
+    } else {
+      return (this.suraTitle = title);
     }
   }
 
-  getSuraWordsByPage(page){
-    this.quranService.getSuraWordsByPage(page).subscribe(response => {
+  getSuraWordsByPage(page) {
+    this.quranService.getSuraWordsByPage(page).subscribe((response) => {
       this.words = response;
-    })
+      this.getAudioOfAyah(1);
+    });
   }
 
-  changePage(page){
+  changePage(page) {
     this.page = page;
     this.getSuraWordsByPage(page);
   }
 
-  getChapters(){
-    this.quranService.getChapters().subscribe(responseData => {
-      this.chapters = responseData
+  getChapters() {
+    this.quranService.getChapters().subscribe((responseData) => {
+      this.chapters = responseData;
     });
   }
 
-  getChapterDetails(chapterNumber){
-    this.quranService.getChapterDetails(chapterNumber).subscribe(responseData => {
-      this.chapterDetails = responseData
-    });
+  getChapterDetails(chapterNumber) {
+    this.quranService
+      .getChapterDetails(chapterNumber)
+      .subscribe((responseData) => {
+        this.chapterDetails = responseData;
+      });
   }
 
-  getChapterWords(chapterNumber){
-    this.quranService.getChapterWords(chapterNumber, this.currentPage).subscribe(responseData => this.chapterWords = responseData);
+  getChapterWords(chapterNumber) {
+    this.quranService
+      .getChapterWords(chapterNumber, this.currentPage)
+      .subscribe((responseData) => (this.chapterWords = responseData));
   }
 
-  getPage(pageNumber){
-    this.quranService.getPage(pageNumber).subscribe(responseData => this.chapterWords = responseData);
+  getPage(pageNumber) {
+    this.quranService
+      .getPage(pageNumber)
+      .subscribe((responseData) => (this.chapterWords = responseData));
   }
 
-  playWord(url){
+  playWord(url) {
     var audioUrl = 'https://dl.salamquran.com/wbw/';
     audioUrl += url;
     var audio = new Audio(audioUrl);
     audio.play();
   }
 
-  playAyat(url, ayaId){
+  playAyat(url, ayaId) {
+    debugger;
     this.manageClassesOfAyats(ayaId, 'add');
-
+    if(audio){
+      if(!audio.paused){
+        audio.pause();
+      }
+    }
     var audio = new Audio(url);
     audio.play();
-  
+
     var self = this;
-    audio.onended = function() {
-         self.manageClassesOfAyats(ayaId, 'remove');
-  };
+    audio.onended = function () {
+      self.manageClassesOfAyats(ayaId, 'remove');
+      debugger;
+      ayaId = Number(ayaId) + 1;
+      audio.src = self.getAudioOfAyah(ayaId);
+      self.manageClassesOfAyats(ayaId, 'add');
+      audio.play();
+
+    };
   }
 
-  manageClassesOfAyats(ayaId, action){
-    var activeAyats = document.querySelectorAll('.aya'+ayaId);
-    activeAyats.forEach(aya => {
-      if(action == 'add'){
+  manageClassesOfAyats(ayaId, action) {
+    var activeAyats = document.querySelectorAll('.aya' + ayaId);
+    activeAyats.forEach((aya) => {
+      if (action == 'add') {
         aya.classList.add('active');
-      }
-      else if(action == 'remove'){
+      } else if (action == 'remove') {
         aya.classList.remove('active');
-      }
-      else if(action == 'mouseover'){
+      } else if (action == 'mouseover') {
         aya.classList.add('hover');
-      }
-      else if(action == 'mouseleave'){
+      } else if (action == 'mouseleave') {
         aya.classList.remove('hover');
       }
     });
   }
 
- 
+  getAudioOfAyah(number) {
+    debugger
+    var stringNumber = String(number);
+    var url = '';
+    this.words.result.forEach((ayah) => {
+      if (ayah.detail.aya == stringNumber) {
+        debugger;
+        url = ayah.detail.audio;
+      }
+    });
+    return url;
+  }
 }

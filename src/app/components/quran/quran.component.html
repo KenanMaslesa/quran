@@ -26,7 +26,7 @@
               id="w{{word.audio_key}}" [innerHtml]="word.code" (click)="playAyat(word.audio, word.aya)"
               (mouseover)="manageClassesOfAyats(word.aya, 'mouseover')"
               (mouseleave)="manageClassesOfAyats(word.aya, 'mouseleave')"
-              ngbPopover="{{word.verse_title}}" triggers="mouseenter:mouseleave"></i>
+              ngbPopover="play {{word.aya}}. ayah" triggers="mouseenter:mouseleave"></i>
 
         </ng-container>
       </div>
