@@ -20,6 +20,7 @@ export class QuranComponent implements OnInit {
   page = 1;
   suraTitle = '';
   audio;
+  previousAyah;
   constructor(private quranService: QuranService) {}
 
   ngOnInit(): void {
@@ -87,24 +88,25 @@ export class QuranComponent implements OnInit {
   }
 
   playAyat(url, ayaId) {
-    debugger;
-    this.manageClassesOfAyats(ayaId, 'add');
     if(this.audio){
       if(!this.audio.paused){
         this.audio.pause();
-        this.manageClassesOfAyats(ayaId, 'remove');
+        this.manageClassesOfAyats(this.previousAyah, 'remove');
       }
     }
     var audio = new Audio(url);
     this.audio = audio;
+    this.previousAyah = ayaId;
+    this.removeActiveClasses();
+    this.manageClassesOfAyats(ayaId, 'add');
     audio.play();
 
     var self = this;
     audio.onended = function () {
       self.manageClassesOfAyats(ayaId, 'remove');
-      debugger;
       ayaId = Number(ayaId) + 1;
       audio.src = self.getAudioOfAyah(ayaId);
+      self.removeActiveClasses();
       self.manageClassesOfAyats(ayaId, 'add');
       audio.play();
 
@@ -126,13 +128,18 @@ export class QuranComponent implements OnInit {
     });
   }
 
+  removeActiveClasses(){
+    var activeAyats = document.querySelectorAll('.ayeLine i');
+    activeAyats.forEach((aya) => {
+        aya.classList.remove('active');
+    });
+  }
+
   getAudioOfAyah(number) {
-    debugger
     var stringNumber = String(number);
     var url = '';
     this.words.result.forEach((ayah) => {
       if (ayah.detail.aya == stringNumber) {
-        debugger;
         url = ayah.detail.audio;
       }
     });
