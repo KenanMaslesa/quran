@@ -53,6 +53,11 @@
         <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">
         <h3>{{setSuraTitle(item.detail.name + ' - '+ item.detail.tname)}}</h3>
       </section>
+      
+      <section class="bismillah" *ngIf="item.detail.line_type == 'besmellah' && words.result[1].detail.page != '187'">
+        <div id="{{item.detail.page}}">﷽</div>
+        <h4 class="ayeSimple">بسم الله الرحمن الرحیم</h4>
+      </section>
 
       <div class="ayeLine" *ngIf="item.word">
         <ng-container *ngFor="let word of item.word">
@@ -73,8 +78,8 @@
   </div>
 
   <div class="indicators">
-    <button class="btn next" (click)="changePage(page + 1)">Next {{page + 1}}</button>
-    <button class="btn prev" [disabled]="page == 1" (click)="changePage(page - 1)">Previous {{page - 1}}</button>
+    <button class="btn next" (click)="changePage(page + 1)">Next page {{page + 1}}</button>
+    <button class="btn prev" [disabled]="page == 1" (click)="changePage(page - 1)">Previous page {{page - 1}}</button>
   </div>
 </div>
 <app-loader *ngIf="showLoader"></app-loader>>
