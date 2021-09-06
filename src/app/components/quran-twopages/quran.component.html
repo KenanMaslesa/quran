@@ -1,60 +1,23 @@
-<div class="main" *ngIf="words">
 
-  <div class="form-group dropdown-wrapper">
-    <select name="sura" class="form-control" *ngIf="suraList" #surah (change)="onSuraChanged($event.target.value)">
-      <option value="">Surahs</option>
-      <option value="{{sura.startpage}}" *ngFor="let sura of suraList">{{sura.tname}} - {{sura.name}}
-      </option>
-    </select>
 
-    <select class="select form-control" name="juz" (change)="onSuraChanged($event.target.value)">
-      <option value="">Juz list</option>
-      <option value="1">Juz 1</option>
-      <option value="22">Juz 2</option>
-      <option value="42">Juz 3</option>
-      <option value="62">Juz 4</option>
-      <option value="82">Juz 5</option>
-      <option value="102">Juz 6</option>
-      <option value="121">Juz 7</option>
-      <option value="142">Juz 8</option>
-      <option value="162">Juz 9</option>
-      <option value="182">Juz 10</option>
-      <option value="201">Juz 11</option>
-      <option value="222">Juz 12</option>
-      <option value="242">Juz 13</option>
-      <option value="262">Juz 14</option>
-      <option value="282">Juz 15</option>
-      <option value="302">Juz 16</option>
-      <option value="322">Juz 17</option>
-      <option value="342">Juz 18</option>
-      <option value="362">Juz 19</option>
-      <option value="382">Juz 20</option>
-      <option value="402">Juz 21</option>
-      <option value="422">Juz 22</option>
-      <option value="442">Juz 23</option>
-      <option value="462">Juz 24</option>
-      <option value="482">Juz 25</option>
-      <option value="502">Juz 26</option>
-      <option value="522">Juz 27</option>
-      <option value="542">Juz 28</option>
-      <option value="562">Juz 29</option>
-      <option value="582">Juz 30</option>
-    </select>
 
-  </div>
+<div class="main" *ngIf="quranService.words2 && quranService.words">
+
   <div >
 <div style="display: flex; justify-content: center; align-items: center;">
   <div style="margin-right: 30px; padding: 15px; border-radius: 5px;">
-    <div dir="rtl" lang="ar" *ngFor="let item of words2.result; let i = index">
+    <div dir="rtl" lang="ar" *ngFor="let item of quranService.words2.result; let i = index">
       <section class="suraTitle" *ngIf="!item.word && item.detail.ayas">
         <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">
         <h3>{{setSuraTitle(item.detail.name + ' - '+ item.detail.tname)}}</h3>
       </section>
       
-      <section class="bismillah" *ngIf="item.detail.line_type == 'besmellah' && words.result[1].detail.page != '187'">
+      <ng-container *ngIf="quranService.words2.result">
+      <section class="bismillah" *ngIf="item.detail.line_type == 'besmellah' && quranService.words2.result[1].detail.page != '187'">
         <div id="{{item.detail.page}}">﷽</div>
         <h4 class="ayeSimple">بسم الله الرحمن الرحیم</h4>
       </section>
+    </ng-container>
 
       <div class="ayeLine" *ngIf="item.word">
         <ng-container *ngFor="let word of item.word">
@@ -75,13 +38,13 @@
   </div>
 
   <div style="padding: 15px; border-radius: 5px; ">
-    <div dir="rtl" lang="ar" *ngFor="let item of words.result; let i = index">
+    <div dir="rtl" lang="ar" *ngFor="let item of quranService.words.result; let i = index">
       <section class="suraTitle" *ngIf="!item.word && item.detail.ayas">
         <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">
         <h3>{{setSuraTitle(item.detail.name + ' - '+ item.detail.tname)}}</h3>
       </section>
       
-      <section class="bismillah" *ngIf="item.detail.line_type == 'besmellah' && words.result[1].detail.page != '187'">
+      <section class="bismillah" *ngIf="item.detail.line_type == 'besmellah' && quranService.words.result[1].detail.page != '187'">
         <div id="{{item.detail.page}}">﷽</div>
         <h4 class="ayeSimple">بسم الله الرحمن الرحیم</h4>
       </section>
@@ -106,13 +69,10 @@
   </div>
       <section class="suraTitle number">
         <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">
-        <h3>      <input value="{{page}}"  type="text" class="form-control" (input)="onSuraChanged($event.target.value)">
+        <h3>      <input value="{{quranService.currentPage}}"  type="text" class="form-control" (input)="quranService.getSuraWordsByPage($event.target.value, 2)">
         </h3>
-        <button class="btn next" (click)="changePage(page + 1)"><</button>
-        <button class="btn prev" [disabled]="page == 1" (click)="changePage(page - 1)">></button>
+        <button class="btn next" (click)="changePage(quranService.currentPage + 1)"><</button>
+        <button class="btn prev" [disabled]="quranService.currentPage == 1" (click)="changePage(quranService.currentPage - 1)">></button>
       </section>
   </div>
 </div>
-<app-loader *ngIf="showLoader"></app-loader>>
-
-<app-quran-onepage></app-quran-onepage>

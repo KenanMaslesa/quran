@@ -15,33 +15,20 @@ export class QuranTwoPagesComponent implements OnInit {
   currentSura = 1;
   chapterWords;
   chapterNumber = 2;
-  currentPage = 1;
   words;
   words2;
-  page = 1;
   suraTitle = '';
   audio;
   previousAyah;
-  showLoader = false;
   suraList;
-  constructor(private quranService: QuranService) {}
+  constructor(public quranService: QuranService) {}
 
   ngOnInit(): void {
-    this.getSuraWordsByPage(this.page, 1);
-    this.getSuraWordsByPage(this.page + 1, 2);
-    this.getSuraList();
+    this.quranService.getSuraWordsByPage(this.quranService.currentPage, 1);
+    this.quranService.getSuraWordsByPage(this.quranService.currentPage + 1, 2);
   }
 
-  onSuraChanged(number) {
-    this.getSuraWordsByPage(number, 1);
-    this.getSuraWordsByPage(Number(number) + 1, 2);
-  }
 
-  getSuraList(){
-    this.quranService.getListOfSura().subscribe(response => {
-      this.suraList = response;
-    })
-  }
 
   setSuraTitle(title: string) {
     if (title.indexOf('undefined') > -1) {
@@ -51,34 +38,11 @@ export class QuranTwoPagesComponent implements OnInit {
     }
   }
 
-  getSuraWordsByPage(page, list) {
-    this.showLoader = true;
-    this.quranService.getSuraWordsByPage(page).subscribe((response) => {
-      this.showLoader = false;
-      if(list == 1){
-        this.words = response;
-      }
-      else if(list == 2){
-        this.words2 = response;
-      }
-      this.setCurrentPage(response);
-    });
-  }
-
-  setCurrentPage(list) {
-    var temPage;
-    list.result.forEach((element) => {
-      temPage = Number(element.detail.page);
-      if (temPage > 0) {
-        this.page = temPage;
-        return;
-      }
-    });
-  }
+ 
   changePage(page) {
-    this.page = page;
-    this.getSuraWordsByPage(page, 1);
-    this.getSuraWordsByPage(page + 1, 2);
+    this.quranService.currentPage = page;
+    this.quranService.getSuraWordsByPage(page, 1);
+    this.quranService.getSuraWordsByPage(page + 1, 2);
   }
 
 
@@ -147,11 +111,10 @@ export class QuranTwoPagesComponent implements OnInit {
   }
 
   getAudioOfAyah(number, v, page) {
-    var stringNumber = String(number);
     var url = '';
     var verse = v.replace('-', ':');
     if(Number(page) % 2 == 0){
-      this.words2.result.forEach((ayah) => {
+      this.quranService.words2.result.forEach((ayah) => {
         if (ayah.word) {
           ayah.word.forEach((element) => {
             if (element.verse_key == verse) {
@@ -162,7 +125,7 @@ export class QuranTwoPagesComponent implements OnInit {
       });
     }
     else{
-        this.words.result.forEach((ayah) => {
+        this.quranService.words.result.forEach((ayah) => {
           if (ayah.word) {
             ayah.word.forEach((element) => {
               if (element.verse_key == verse) {
@@ -175,4 +138,6 @@ export class QuranTwoPagesComponent implements OnInit {
    
     return url;
   }
+
+ 
 }

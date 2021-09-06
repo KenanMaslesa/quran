@@ -10,6 +10,8 @@ import { SpeakingComponent } from './components/speaking/speaking.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { QuranTwoPagesComponent } from './components/quran-twopages/quran.component';
 import { QuranOnePageComponent } from './components/quran-onepage/quran.component';
+import { QuranHeaderComponent } from './components/quran-header/quran-header.component';
+import { QuranComponent } from './pages/quran/quran.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { QuranOnePageComponent } from './components/quran-onepage/quran.componen
     SpeakingComponent,
     LoaderComponent,
     QuranTwoPagesComponent,
-    QuranOnePageComponent
+    QuranOnePageComponent,
+    QuranHeaderComponent,
+    QuranComponent
   ],
   imports: [
     BrowserModule,

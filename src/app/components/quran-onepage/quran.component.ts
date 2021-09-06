@@ -15,23 +15,20 @@ export class QuranOnePageComponent implements OnInit {
   currentSura = 1;
   chapterWords;
   chapterNumber = 2;
-  currentPage = 1;
   words;
-  page = 1;
   suraTitle = '';
   audio;
   previousAyah;
-  showLoader = false;
   suraList;
-  constructor(private quranService: QuranService) {}
+  constructor(public quranService: QuranService) {}
 
   ngOnInit(): void {
-    this.getSuraWordsByPage(this.page);
+    this.quranService.getSuraWordsByPage(this.quranService.currentPage, 1);
     this.getSuraList();
   }
 
   onSuraChanged(number) {
-    this.getSuraWordsByPage(number);
+    this.quranService.getSuraWordsByPage(number, 1);
   }
 
   getSuraList(){
@@ -48,29 +45,9 @@ export class QuranOnePageComponent implements OnInit {
     }
   }
 
-  getSuraWordsByPage(page) {
-    this.showLoader = true;
-    this.quranService.getSuraWordsByPage(page).subscribe((response) => {
-      this.showLoader = false;
-        this.words = response;
-      this.setCurrentPage(response);
-      this.getAudioOfAyah(1, 1);
-    });
-  }
-
-  setCurrentPage(list) {
-    var temPage;
-    list.result.forEach((element) => {
-      temPage = Number(element.detail.page);
-      if (temPage > 0) {
-        this.page = temPage;
-        return;
-      }
-    });
-  }
   changePage(page) {
-    this.page = page;
-    this.getSuraWordsByPage(page);
+    this.quranService.currentPage = page;
+    this.quranService.getSuraWordsByPage(page, 1);
   }
 
   getPage(pageNumber) {
@@ -138,7 +115,6 @@ export class QuranOnePageComponent implements OnInit {
   }
 
   getAudioOfAyah(number, v) {
-    var stringNumber = String(number);
     var url = '';
     var verse = v.replace('-', ':');
     this.words.result.forEach((ayah) => {

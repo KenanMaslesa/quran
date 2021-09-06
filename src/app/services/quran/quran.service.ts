@@ -8,8 +8,16 @@ import { quranResponseData } from 'src/app/models/quran.model';
 })
 export class QuranService {
   quranApi = "https://api.quran.com/api/v4";
+  onePageMode = false;
+  twoPagesMode = true;
+  words: any;
+  words2: any;
+  showLoader = false;
+  currentPage = 1;
 //https://salamquran.com/api/v6/doc
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  
+   }
   getAyat(sura,ayat){
     return this.http.get(`https://salamquran.com/en/api/v6/sura?index=${sura}&start=${ayat}&limit=1`).pipe();
   }
@@ -18,8 +26,19 @@ export class QuranService {
     return this.http.get(`https://salamquran.com/en/api/v6/sura?index=${sura}`).pipe();
   }
 
-  getSuraWordsByPage(page){
-    return this.http.get(`https://salamquran.com/en/api/v6/page/wbw?index=${page}`).pipe();
+  getSuraWordsByPage(page, list){
+    debugger
+    this.showLoader = true;
+     this.http.get(`https://salamquran.com/en/api/v6/page/wbw?index=${page}`).pipe().subscribe((response) => {
+       if(list == 1){
+         this.words = response;
+        }
+        else if(list == 2){
+          this.words2 = response;
+        }
+        this.setCurrentPage(response);
+        this.showLoader = false;
+    });
   }
 
   getListOfSura(){
@@ -51,5 +70,19 @@ export class QuranService {
 
   getRecitations(){
     return this.http.get(`${this.quranApi}/resources/recitations?language=en`).pipe();
+  }
+
+
+  setCurrentPage(list) {
+    var temPage;
+    list.result.forEach((element) => {
+      temPage = Number(element.detail.page);
+      if (temPage > 0) {
+        this.currentPage = temPage;
+        return;
+      }
+    });
+
+    
   }
 }

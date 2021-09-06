@@ -1,0 +1,11 @@
+<app-quran-header></app-quran-header>
+
+<ng-container *ngIf="quranService.twoPagesMode">
+  <app-quran-twopages></app-quran-twopages>
+</ng-container>
+
+<ng-container *ngIf="quranService.onePageMode">
+  <app-quran-onepage></app-quran-onepage>
+</ng-container>
+
+<app-loader *ngIf="quranService.showLoader"></app-loader>>
