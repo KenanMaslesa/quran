@@ -1,13 +1,13 @@
 <div class="main" *ngIf="words">
 
-  <div class="form-group">
-    <select name="sura" *ngIf="suraList" #surah (change)="onSuraChanged($event.target.value)">
+  <div class="form-group dropdown-wrapper">
+    <select name="sura" class="form-control" *ngIf="suraList" #surah (change)="onSuraChanged($event.target.value)">
       <option value="">Sura list</option>
       <option value="{{sura.startpage}}" *ngFor="let sura of suraList">{{sura.tname}} - {{sura.name}}
       </option>
     </select>
 
-    <select class="select" name="juz" (change)="onSuraChanged($event.target.value)">
+    <select class="select form-control" name="juz" (change)="onSuraChanged($event.target.value)">
       <option value="">Juz list</option>
       <option value="1">Juz 1</option>
       <option value="22">Juz 2</option>
@@ -41,15 +41,10 @@
       <option value="582">Juz 30</option>
     </select>
 
-    <div class="form-group" style="display: inline;">
-      <label>Upisite broj stranice</label>
-      <input style="width: 100px; margin: 0 auto; display: inline;" type="text" class="form-control" (input)="onSuraChanged($event.target.value)">
-    </div>
-    
   </div>
-  <div dir="rtl" lang="ar">
+  <div >
 
-    <ng-container *ngFor="let item of words.result; let i = index">
+    <div dir="rtl" lang="ar" *ngFor="let item of words.result; let i = index">
       <section class="suraTitle" *ngIf="!item.word && item.detail.ayas">
         <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">
         <h3>{{setSuraTitle(item.detail.name + ' - '+ item.detail.tname)}}</h3>
@@ -75,17 +70,15 @@
 
         </ng-container>
       </div>
-    </ng-container>
+    </div>
 
       <section class="suraTitle number">
         <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">
-        <h3>{{page}}</h3>
+        <h3>      <input placeholder="{{page}}"  type="text" class="form-control" (input)="onSuraChanged($event.target.value)">
+        </h3>
+        <button class="btn next" (click)="changePage(page + 1)">></button>
+        <button class="btn prev" [disabled]="page == 1" (click)="changePage(page - 1)"><</button>
       </section>
-  </div>
-
-  <div class="indicators">
-    <button class="btn next" (click)="changePage(page + 1)">Next page {{page + 1}}</button>
-    <button class="btn prev" [disabled]="page == 1" (click)="changePage(page - 1)">Previous page {{page - 1}}</button>
   </div>
 </div>
 <app-loader *ngIf="showLoader"></app-loader>>

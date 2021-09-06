@@ -39,7 +39,6 @@ export class QuranComponent implements OnInit {
 
   getSuraList(){
     this.quranService.getListOfSura().subscribe(response => {
-      debugger
       this.suraList = response;
     })
   }

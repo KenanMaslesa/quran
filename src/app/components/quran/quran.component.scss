@@ -14,14 +14,6 @@
   }
 }
 
-.indicators{
-  .btn{
-    background: #d9c3a7;
-    color: white;
-    margin-right: 10px;
-    min-width: 85px;
-  }
-  }
 .ayeLine {
 i{
   font-weight: 400;
@@ -7633,10 +7625,59 @@ html[lang="ar"] #soreha .c7 span {
   padding: 10px;
 
   &.number{
+    width: 315px;
+    margin: 0 auto;
+
+    input{
+      width: 100px;
+    margin: 0 auto;
+    display: inline;
+    text-align: center;
+    background: transparent;
+    border: none;
+
+    &:focus{
+      box-shadow: none;
+    }
+    }
     img{
       width: 240px;
     height: 40px;
     }
+
+    .btn{
+      position: absolute;
+    top: 17px;
+    text-align: center;
+    font-size: 20px;
+    line-height: 42px;
+    margin: 0;
+    color: white;
+    font-weight: 900;
+    background: #d9c3a7;
+    border-radius: 100%;
+    height: 23px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    cursor: pointer;
+
+      &.prev{
+      left: 10px;
+      }
+      &.next{
+        right: 10px;
+      }
+    }
+  }
+}
+
+.dropdown-wrapper{
+  select{
+    width: 200px;
+    display: inline-block;
+    margin-right: 5px;
   }
 }
 
