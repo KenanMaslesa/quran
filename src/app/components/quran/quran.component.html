@@ -2,6 +2,7 @@
 
   <div class="form-group">
     <select name="sura" *ngIf="suraList" #surah (change)="onSuraChanged($event.target.value)">
+      <option value="">Sura list</option>
       <option value="{{sura.startpage}}" *ngFor="let sura of suraList">{{sura.tname}} - {{sura.name}}
       </option>
     </select>
