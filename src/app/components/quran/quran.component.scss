@@ -7631,6 +7631,13 @@ html[lang="ar"] #soreha .c7 span {
   overflow: hidden;
   //background-color: #f7f7f7;
   padding: 10px;
+
+  &.number{
+    img{
+      width: 240px;
+    height: 40px;
+    }
+  }
 }
 
 .suraTitle img {
