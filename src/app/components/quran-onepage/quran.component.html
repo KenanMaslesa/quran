@@ -10,7 +10,7 @@
         <h3>{{setSuraTitle(item.detail.name + ' - '+ item.detail.tname)}}</h3>
       </section>
       
-      <section class="bismillah" *ngIf="item.detail.line_type == 'besmellah' && words.result[1].detail.page != '187'">
+      <section class="bismillah" *ngIf="item.detail.line_type == 'besmellah' && quranService.words.result[1].detail.page != '187'">
         <div id="{{item.detail.page}}">﷽</div>
         <h4 class="ayeSimple">بسم الله الرحمن الرحیم</h4>
       </section>

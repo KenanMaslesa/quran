@@ -27,7 +27,6 @@ export class QuranService {
   }
 
   getSuraWordsByPage(page, list){
-    debugger
     this.showLoader = true;
      this.http.get(`https://salamquran.com/en/api/v6/page/wbw?index=${page}`).pipe().subscribe((response) => {
        if(list == 1){
