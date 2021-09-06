@@ -21,6 +21,7 @@ export class QuranComponent implements OnInit {
   suraTitle = '';
   audio;
   previousAyah;
+  showLoader = false;
   constructor(private quranService: QuranService) {}
 
   ngOnInit(): void {
@@ -43,10 +44,12 @@ export class QuranComponent implements OnInit {
   }
 
   getSuraWordsByPage(page) {
+    this.showLoader = true;
     this.quranService.getSuraWordsByPage(page).subscribe((response) => {
+      this.showLoader = false;
       this.words = response;
       this.setCurrentPage(response);
-      this.getAudioOfAyah(1,1);
+      this.getAudioOfAyah(1, 1);
     });
   }
 
@@ -117,7 +120,7 @@ export class QuranComponent implements OnInit {
     audio.onended = function () {
       self.manageClassesOfAyats(ayahID, 'remove');
       ayah = Number(ayah) + 1;
-      ayahID = ayahID.substring(0,ayahID.indexOf("-"));
+      ayahID = ayahID.substring(0, ayahID.indexOf('-'));
       ayahID = ayahID + '-' + ayah;
       audio.src = self.getAudioOfAyah(ayah, ayahID);
       self.removeActiveClasses();
@@ -154,14 +157,13 @@ export class QuranComponent implements OnInit {
     var url = '';
     var verse = v.replace('-', ':');
     this.words.result.forEach((ayah) => {
-      if(ayah.word){
-        ayah.word.forEach(element => {
+      if (ayah.word) {
+        ayah.word.forEach((element) => {
           if (element.verse_key == verse) {
             url = element.audio;
           }
         });
       }
-      
     });
     return url;
   }
