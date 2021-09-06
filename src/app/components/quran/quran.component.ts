@@ -22,6 +22,7 @@ export class QuranComponent implements OnInit {
   audio;
   previousAyah;
   showLoader = false;
+  suraList;
   constructor(private quranService: QuranService) {}
 
   ngOnInit(): void {
@@ -29,10 +30,18 @@ export class QuranComponent implements OnInit {
     this.getChapterWords(this.chapterNumber);
     this.getChapterDetails(this.chapterNumber);
     this.getSuraWordsByPage(this.page);
+    this.getSuraList();
   }
 
   onSuraChanged(number) {
     this.getSuraWordsByPage(number);
+  }
+
+  getSuraList(){
+    this.quranService.getListOfSura().subscribe(response => {
+      debugger
+      this.suraList = response;
+    })
   }
 
   setSuraTitle(title: string) {

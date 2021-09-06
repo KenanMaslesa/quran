@@ -1,8 +1,8 @@
 <div class="main" *ngIf="words">
 
   <div class="form-group">
-    <select name="sura" *ngIf="chapters" #surah (change)="onSuraChanged($event.target.value)">
-      <option value="{{sura.id}}" *ngFor="let sura of chapters.chapters">{{sura.name_simple}} - {{sura.name_arabic}}
+    <select name="sura" *ngIf="suraList" #surah (change)="onSuraChanged($event.target.value)">
+      <option value="{{sura.startpage}}" *ngFor="let sura of suraList">{{sura.tname}} - {{sura.name}}
       </option>
     </select>
 
