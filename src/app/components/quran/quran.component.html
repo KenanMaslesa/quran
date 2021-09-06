@@ -74,7 +74,7 @@
 
       <section class="suraTitle number">
         <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">
-        <h3>      <input placeholder="{{page}}"  type="text" class="form-control" (input)="onSuraChanged($event.target.value)">
+        <h3>      <input value="{{page}}"  type="text" class="form-control" (input)="onSuraChanged($event.target.value)">
         </h3>
         <button class="btn next" (click)="changePage(page + 1)">></button>
         <button class="btn prev" [disabled]="page == 1" (click)="changePage(page - 1)"><</button>
