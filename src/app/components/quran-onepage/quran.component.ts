@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { QuranService } from 'src/app/services/quran/quran.service';
 
 @Component({
-  selector: 'app-quran',
+  selector: 'app-quran-onepage',
   templateUrl: './quran.component.html',
   styleUrls: ['./quran.component.scss'],
 })
-export class QuranComponent implements OnInit {
+export class QuranOnePageComponent implements OnInit {
   indexOfAyahInQuran;
   sura;
   chapters;
@@ -17,7 +17,6 @@ export class QuranComponent implements OnInit {
   chapterNumber = 2;
   currentPage = 1;
   words;
-  words2;
   page = 1;
   suraTitle = '';
   audio;
@@ -27,14 +26,12 @@ export class QuranComponent implements OnInit {
   constructor(private quranService: QuranService) {}
 
   ngOnInit(): void {
-    this.getSuraWordsByPage(this.page, 1);
-    this.getSuraWordsByPage(this.page + 1, 2);
+    this.getSuraWordsByPage(this.page);
     this.getSuraList();
   }
 
   onSuraChanged(number) {
-    this.getSuraWordsByPage(number, 1);
-    this.getSuraWordsByPage(Number(number) + 1, 2);
+    this.getSuraWordsByPage(number);
   }
 
   getSuraList(){
@@ -51,17 +48,13 @@ export class QuranComponent implements OnInit {
     }
   }
 
-  getSuraWordsByPage(page, list) {
+  getSuraWordsByPage(page) {
     this.showLoader = true;
     this.quranService.getSuraWordsByPage(page).subscribe((response) => {
       this.showLoader = false;
-      if(list == 1){
         this.words = response;
-      }
-      else if(list == 2){
-        this.words2 = response;
-      }
       this.setCurrentPage(response);
+      this.getAudioOfAyah(1, 1);
     });
   }
 
@@ -77,10 +70,8 @@ export class QuranComponent implements OnInit {
   }
   changePage(page) {
     this.page = page;
-    this.getSuraWordsByPage(page, 1);
-    this.getSuraWordsByPage(page + 1, 2);
+    this.getSuraWordsByPage(page);
   }
-
 
   getPage(pageNumber) {
     this.quranService
@@ -95,7 +86,7 @@ export class QuranComponent implements OnInit {
     audio.play();
   }
 
-  playAyat(url, ayah, ayahID, page) {
+  playAyat(url, ayah, ayahID) {
     if (this.audio) {
       if (!this.audio.paused) {
         this.audio.pause();
@@ -116,7 +107,7 @@ export class QuranComponent implements OnInit {
       ayah = Number(ayah) + 1;
       ayahID = ayahID.substring(0, ayahID.indexOf('-'));
       ayahID = ayahID + '-' + ayah;
-      audio.src = self.getAudioOfAyah(ayah, ayahID, page);
+      audio.src = self.getAudioOfAyah(ayah, ayahID);
       self.removeActiveClasses();
       self.manageClassesOfAyats(ayahID, 'add');
       audio.play();
@@ -146,33 +137,19 @@ export class QuranComponent implements OnInit {
     });
   }
 
-  getAudioOfAyah(number, v, page) {
+  getAudioOfAyah(number, v) {
     var stringNumber = String(number);
     var url = '';
     var verse = v.replace('-', ':');
-    if(Number(page) % 2 == 0){
-      this.words2.result.forEach((ayah) => {
-        if (ayah.word) {
-          ayah.word.forEach((element) => {
-            if (element.verse_key == verse) {
-              url = element.audio;
-            }
-          });
-        }
-      });
-    }
-    else{
-        this.words.result.forEach((ayah) => {
-          if (ayah.word) {
-            ayah.word.forEach((element) => {
-              if (element.verse_key == verse) {
-                url = element.audio;
-              }
-            });
+    this.words.result.forEach((ayah) => {
+      if (ayah.word) {
+        ayah.word.forEach((element) => {
+          if (element.verse_key == verse) {
+            url = element.audio;
           }
         });
-    }
-   
+      }
+    });
     return url;
   }
 }

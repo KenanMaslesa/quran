@@ -9,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SpeakingComponent } from './components/speaking/speaking.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { QuranComponent } from './components/quran/quran.component';
+import { QuranOnePageComponent } from './components/quran-onepage/quran.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { QuranComponent } from './components/quran/quran.component';
     SpeakingComponent,
     LoaderComponent,
     QuranComponent,
+    QuranOnePageComponent
   ],
   imports: [
     BrowserModule,
