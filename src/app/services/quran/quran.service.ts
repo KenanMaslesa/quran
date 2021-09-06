@@ -52,6 +52,10 @@ export class QuranService {
     ));
   }
 
+  getAyah(number){
+    return this.http.get(`https://salamquran.com/en/api/v6/aya?index=${number}`);
+  }
+
   getChapters(){ //sure
     return this.http.get(`${this.quranApi}/chapters?language=en`).pipe();
   }
