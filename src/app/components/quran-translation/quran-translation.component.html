@@ -1,0 +1,78 @@
+
+
+
+<div class="main" *ngIf="quranService.words">
+
+  <div style="margin-top: 30px;">
+<div style="display: flex; justify-content: center; align-items: center;">
+  <div style="margin-right: 10px; padding: 15px; border-radius: 5px; border: 1px solid #ced4da;">
+    <div *ngFor="let item of quranService.words.result; let i = index">
+      <section class="suraTitle" *ngIf="!item.word && item.detail.ayas">
+        <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">
+        <h3>{{setSuraTitle(item.detail.name + ' - '+ item.detail.tname)}}</h3>
+      </section>
+      
+      <ng-container *ngIf="quranService.words.result">
+      <section class="bismillah" *ngIf="item.detail.line_type == 'besmellah' && quranService.words.result[1].detail.page != '187'">
+        <div id="{{item.detail.page}}">﷽</div>
+        <h4 class="ayeSimple">بسم الله الرحمن الرحیم</h4>
+      </section>
+    </ng-container>
+
+      <div class="ayeLine" *ngIf="item.word">
+        <ng-container *ngFor="let word of item.word">
+
+          <i *ngIf="word.char_type != 'end'"
+            class="aya{{word.verse_key.replace(':', '-')}} translation"  id="w{{word.audio_key}}" [innerHtml]="word.translation"
+            (click)="playWord(word.audio)" ngbPopover="{{word.translation}}" triggers="mouseenter:mouseleave"></i>
+
+            <i *ngIf="word.char_type == 'end'" class="{{word.class_name}} aya{{word.verse_key.replace(':', '-')}}"
+              id="w{{word.audio_key}}" [innerHtml]="word.code" (click)="playAyat(word, word.aya, word.verse_key.replace(':', '-'), word.page)"
+              (mouseover)="manageClassesOfAyats(word.verse_key, 'mouseover')"
+              (mouseleave)="manageClassesOfAyats(word.verse_key, 'mouseleave')"
+              ngbPopover="play {{word.aya}}. ayah" triggers="mouseenter:mouseleave"></i>
+
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding: 15px; border-radius: 5px; border: 1px solid #ced4da;">
+    <div dir="rtl" lang="ar" *ngFor="let item of quranService.words.result; let i = index">
+      <section class="suraTitle" *ngIf="!item.word && item.detail.ayas">
+        <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">
+        <h3>{{setSuraTitle(item.detail.name + ' - '+ item.detail.tname)}}</h3>
+      </section>
+      
+      <section class="bismillah" *ngIf="item.detail.line_type == 'besmellah' && quranService.words.result[1].detail.page != '187'">
+        <div id="{{item.detail.page}}">﷽</div>
+        <h4 class="ayeSimple">بسم الله الرحمن الرحیم</h4>
+      </section>
+
+      <div class="ayeLine" *ngIf="item.word">
+        <ng-container *ngFor="let word of item.word">
+
+          <i *ngIf="word.char_type != 'end'"
+            class="{{word.class_name}} aya{{word.verse_key.replace(':', '-')}}"  id="w{{word.audio_key}}" [innerHtml]="word.code"
+            (click)="playWord(word.audio)" ngbPopover="{{word.translation}}" triggers="mouseenter:mouseleave"></i>
+
+            <i *ngIf="word.char_type == 'end'" class="{{word.class_name}} aya{{word.verse_key.replace(':', '-')}}"
+              id="w{{word.audio_key}}" [innerHtml]="word.code" (click)="playAyat(word, word.aya, word.verse_key.replace(':', '-'))"
+              (mouseover)="manageClassesOfAyats(word.verse_key, 'mouseover')"
+              (mouseleave)="manageClassesOfAyats(word.verse_key, 'mouseleave')"
+              ngbPopover="play {{word.aya}}. ayah" triggers="mouseenter:mouseleave"></i>
+
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  </div>
+      <section class="suraTitle number">
+        <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">
+        <h3>      <input value="{{quranService.currentPage+1}} - {{quranService.currentPage}}"  type="text" class="form-control" (input)="quranService.getSuraWordsByPage($event.target.value, 2)">
+        </h3>
+        <button class="btn next" (click)="changePage(quranService.currentPage + 2)"><</button>
+        <button class="btn prev" [disabled]="quranService.currentPage == 1" (click)="changePage(quranService.currentPage - 2)">></button>
+      </section>
+  </div>
+</div>

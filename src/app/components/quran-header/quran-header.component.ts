@@ -24,10 +24,17 @@ export class QuranHeaderComponent implements OnInit {
     if(mode == 1){
       this.quranService.onePageMode = true;
       this.quranService.twoPagesMode = false;
+      this.quranService.translationMode = false;
     }
     else if(mode == 2){
       this.quranService.onePageMode = false;
       this.quranService.twoPagesMode = true;
+      this.quranService.translationMode = false;
+    }
+    else if(mode == 3){
+      this.quranService.onePageMode = false;
+      this.quranService.twoPagesMode = false;
+      this.quranService.translationMode = true;
     }
   }
 

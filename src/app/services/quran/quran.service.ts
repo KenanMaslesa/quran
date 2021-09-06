@@ -9,6 +9,7 @@ import { quranResponseData } from 'src/app/models/quran.model';
 export class QuranService {
   quranApi = "https://api.quran.com/api/v4";
   onePageMode = false;
+  translationMode = false;
   twoPagesMode = true;
   words: any;
   words2: any;

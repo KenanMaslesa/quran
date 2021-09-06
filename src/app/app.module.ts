@@ -12,6 +12,7 @@ import { QuranTwoPagesComponent } from './components/quran-twopages/quran.compon
 import { QuranOnePageComponent } from './components/quran-onepage/quran.component';
 import { QuranHeaderComponent } from './components/quran-header/quran-header.component';
 import { QuranComponent } from './pages/quran/quran.component';
+import { QuranTranslationComponent } from './components/quran-translation/quran-translation.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { QuranComponent } from './pages/quran/quran.component';
     QuranTwoPagesComponent,
     QuranOnePageComponent,
     QuranHeaderComponent,
-    QuranComponent
+    QuranComponent,
+    QuranTranslationComponent
   ],
   imports: [
     BrowserModule,
