@@ -98,7 +98,7 @@ export class QuranOnePageComponent implements OnInit {
   resumeAudio(){
     this.audio.play();
   }
-  
+
   manageClassesOfAyats(ayaId, action) {
     ayaId = ayaId.replace(':', '-');
     var activeAyats = document.querySelectorAll('.aya' + ayaId);
@@ -125,7 +125,7 @@ export class QuranOnePageComponent implements OnInit {
   getAudioOfAyah(number, v) {
     var url = '';
     var verse = v.replace('-', ':');
-    this.words.result.forEach((ayah) => {
+    this.quranService.words.result.forEach((ayah) => {
       if (ayah.word) {
         ayah.word.forEach((element) => {
           if (element.verse_key == verse) {
