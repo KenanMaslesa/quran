@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SpeakingComponent } from './components/speaking/speaking.component';
 import { LoaderComponent } from './components/loader/loader.component';
-import { QuranComponent } from './components/quran/quran.component';
+import { QuranTwoPagesComponent } from './components/quran-twopages/quran.component';
 import { QuranOnePageComponent } from './components/quran-onepage/quran.component';
 
 @NgModule({
@@ -16,7 +16,7 @@ import { QuranOnePageComponent } from './components/quran-onepage/quran.componen
     AppComponent,
     SpeakingComponent,
     LoaderComponent,
-    QuranComponent,
+    QuranTwoPagesComponent,
     QuranOnePageComponent
   ],
   imports: [

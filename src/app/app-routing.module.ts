@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { QuranComponent } from './components/quran/quran.component';
+import { QuranTwoPagesComponent } from './components/quran-twopages/quran.component';
 import { SpeakingComponent } from './components/speaking/speaking.component';
 
 const routes: Routes = [
-  {path: '', component: QuranComponent},
+  {path: '', component: QuranTwoPagesComponent},
   {path: 'test', component: SpeakingComponent},
 ];
 

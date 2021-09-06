@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { QuranService } from 'src/app/services/quran/quran.service';
 
 @Component({
-  selector: 'app-quran',
+  selector: 'app-quran-twopages',
   templateUrl: './quran.component.html',
   styleUrls: ['./quran.component.scss'],
 })
-export class QuranComponent implements OnInit {
+export class QuranTwoPagesComponent implements OnInit {
   indexOfAyahInQuran;
   sura;
   chapters;
