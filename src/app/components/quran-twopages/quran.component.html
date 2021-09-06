@@ -3,9 +3,9 @@
 
 <div class="main" *ngIf="quranService.words2 && quranService.words">
 
-  <div >
+  <div style="margin-top: 30px;">
 <div style="display: flex; justify-content: center; align-items: center;">
-  <div style="margin-right: 30px; padding: 15px; border-radius: 5px;">
+  <div style="margin-right: 10px; padding: 15px; border-radius: 5px; border: 1px solid #ced4da;">
     <div dir="rtl" lang="ar" *ngFor="let item of quranService.words2.result; let i = index">
       <section class="suraTitle" *ngIf="!item.word && item.detail.ayas">
         <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">
@@ -37,7 +37,7 @@
     </div>
   </div>
 
-  <div style="padding: 15px; border-radius: 5px; ">
+  <div style="padding: 15px; border-radius: 5px; border: 1px solid #ced4da;">
     <div dir="rtl" lang="ar" *ngFor="let item of quranService.words.result; let i = index">
       <section class="suraTitle" *ngIf="!item.word && item.detail.ayas">
         <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">
@@ -69,10 +69,10 @@
   </div>
       <section class="suraTitle number">
         <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">
-        <h3>      <input value="{{quranService.currentPage}}"  type="text" class="form-control" (input)="quranService.getSuraWordsByPage($event.target.value, 2)">
+        <h3>      <input value="{{quranService.currentPage+1}} - {{quranService.currentPage}}"  type="text" class="form-control" (input)="quranService.getSuraWordsByPage($event.target.value, 2)">
         </h3>
-        <button class="btn next" (click)="changePage(quranService.currentPage + 1)"><</button>
-        <button class="btn prev" [disabled]="quranService.currentPage == 1" (click)="changePage(quranService.currentPage - 1)">></button>
+        <button class="btn next" (click)="changePage(quranService.currentPage + 2)"><</button>
+        <button class="btn prev" [disabled]="quranService.currentPage == 1" (click)="changePage(quranService.currentPage - 2)">></button>
       </section>
   </div>
 </div>

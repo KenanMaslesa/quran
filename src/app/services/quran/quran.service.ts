@@ -35,7 +35,7 @@ export class QuranService {
         else if(list == 2){
           this.words2 = response;
         }
-        this.setCurrentPage(response);
+        //this.setCurrentPage(response);
         this.showLoader = false;
     });
   }

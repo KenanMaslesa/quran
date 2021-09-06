@@ -1,9 +1,9 @@
 <div class="main" *ngIf="quranService.words">
 
-  <div>
+  <div style="margin-top: 30px;">
 <div style="display: flex; justify-content: center; align-items: center;">
   
-  <div style="padding: 15px; border-radius: 5px; ">
+  <div style="padding: 15px; border-radius: 5px; border: 1px solid #ced4da;">
     <div dir="rtl" lang="ar" *ngFor="let item of quranService.words.result; let i = index">
       <section class="suraTitle" *ngIf="!item.word && item.detail.ayas">
         <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">

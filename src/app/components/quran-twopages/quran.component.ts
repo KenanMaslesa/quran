@@ -24,6 +24,7 @@ export class QuranTwoPagesComponent implements OnInit {
   constructor(public quranService: QuranService) {}
 
   ngOnInit(): void {
+    this.quranService.currentPage = 1;
     this.quranService.getSuraWordsByPage(this.quranService.currentPage, 1);
     this.quranService.getSuraWordsByPage(this.quranService.currentPage + 1, 2);
   }
