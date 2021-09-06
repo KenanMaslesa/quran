@@ -1,4 +1,9 @@
-
+<div class="play-btn-wrapper">
+  <ng-container *ngIf="audio" >
+    <button *ngIf="audio.paused" class="btn" style="margin-right: 10px" (click)="resumeAudio()">Play</button>
+    <button *ngIf="!audio.paused" class="btn" (click)="pauseAudio()">Pause</button>
+  </ng-container>
+</div>
 
 
 <div class="main" *ngIf="quranService.words">

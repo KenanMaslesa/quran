@@ -91,6 +91,14 @@ export class QuranOnePageComponent implements OnInit {
     };
   }
 
+  pauseAudio(){
+    this.audio.pause();
+  }
+
+  resumeAudio(){
+    this.audio.play();
+  }
+  
   manageClassesOfAyats(ayaId, action) {
     ayaId = ayaId.replace(':', '-');
     var activeAyats = document.querySelectorAll('.aya' + ayaId);

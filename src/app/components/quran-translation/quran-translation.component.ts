@@ -29,6 +29,13 @@ export class QuranTranslationComponent implements OnInit {
     this.quranService.getSuraWordsByPage(this.quranService.currentPage + 1, 2);
   }
 
+  pauseAudio(){
+    this.audio.pause();
+  }
+
+  resumeAudio(){
+    this.audio.play();
+  }
 
 
   setSuraTitle(title: string) {

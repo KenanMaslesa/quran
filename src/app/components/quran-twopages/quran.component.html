@@ -1,5 +1,10 @@
 
-
+<div class="play-btn-wrapper">
+  <ng-container *ngIf="audio" >
+    <button *ngIf="audio.paused" class="btn" style="margin-right: 10px" (click)="resumeAudio()">Play</button>
+    <button *ngIf="!audio.paused" class="btn" (click)="pauseAudio()">Pause</button>
+  </ng-container>
+</div>
 
 <div class="main" *ngIf="quranService.words2 && quranService.words">
 
@@ -56,7 +61,7 @@
 
           <i *ngIf="word.char_type != 'end'"
             class="{{word.class_name}} aya{{word.verse_key.replace(':', '-')}}"  id="w{{word.audio_key}}" [innerHtml]="word.code"
-            (click)="playWord(word.audio)" ngbPopover="{{word.translation}}" triggers="mouseenter:mouseleave"></i>
+            (click)="playWord(word.audio) && audio.src=word.audio" ngbPopover="{{word.translation}}" triggers="mouseenter:mouseleave"></i>
 
             <i *ngIf="word.char_type == 'end'" class="{{word.class_name}} aya{{word.verse_key.replace(':', '-')}}"
               id="w{{word.audio_key}}" [innerHtml]="word.code" (click)="playAyat(word, word.aya, word.verse_key.replace(':', '-'))"

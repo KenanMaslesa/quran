@@ -21,6 +21,7 @@ export class QuranTwoPagesComponent implements OnInit {
   audio;
   previousAyah;
   suraList;
+  audioUrl;
   constructor(public quranService: QuranService) {}
 
   ngOnInit(): void {
@@ -60,7 +61,15 @@ export class QuranTwoPagesComponent implements OnInit {
     audio.play();
   }
 
+  pauseAudio(){
+    this.audio.pause();
+  }
+
+  resumeAudio(){
+    this.audio.play();
+  }
   playAyat(url, ayah, ayahID, page) {
+    this.audioUrl = url.audio;
     if (this.audio) {
       if (!this.audio.paused) {
         this.audio.pause();
@@ -82,6 +91,7 @@ export class QuranTwoPagesComponent implements OnInit {
       ayahID = ayahID.substring(0, ayahID.indexOf('-'));
       ayahID = ayahID + '-' + ayah;
       audio.src = self.getAudioOfAyah(ayah, ayahID, page);
+      self.audioUrl = audio.src;
       self.removeActiveClasses();
       self.manageClassesOfAyats(ayahID, 'add');
       audio.play();

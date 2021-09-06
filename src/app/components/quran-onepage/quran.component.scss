@@ -14,6 +14,16 @@
   }
 }
 
+.play-btn-wrapper{
+  text-align: center;
+  min-height: 38px;
+
+  .btn{
+    background: #d9c3a7;
+    color: white;
+  }
+}
+
 .ayeLine {
 i{
   font-weight: 400;
