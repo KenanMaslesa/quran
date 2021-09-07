@@ -88,7 +88,7 @@ export class QuranTranslationComponent implements OnInit {
       ayah = Number(ayah) + 1;
       ayahID = ayahID.substring(0, ayahID.indexOf('-'));
       ayahID = ayahID + '-' + ayah;
-      audio.src = self.getAudioOfAyah(ayah, ayahID, page);
+      audio.src = self.getAudioOfAyah(ayahID);
       self.removeActiveClasses();
       self.manageClassesOfAyats(ayahID, 'add');
       audio.play();
@@ -118,32 +118,18 @@ export class QuranTranslationComponent implements OnInit {
     });
   }
 
-  getAudioOfAyah(number, v, page) {
+  getAudioOfAyah(v) {
     var url = '';
     var verse = v.replace('-', ':');
-    if(Number(page) % 2 == 0){
-      this.quranService.words2.result.forEach((ayah) => {
-        if (ayah.word) {
-          ayah.word.forEach((element) => {
-            if (element.verse_key == verse) {
-              url = element.audio;
-            }
-          });
-        }
-      });
-    }
-    else{
-        this.quranService.words.result.forEach((ayah) => {
-          if (ayah.word) {
-            ayah.word.forEach((element) => {
-              if (element.verse_key == verse) {
-                url = element.audio;
-              }
-            });
+    this.quranService.words.result.forEach((ayah) => {
+      if (ayah.word) {
+        ayah.word.forEach((element) => {
+          if (element.verse_key == verse) {
+            url = element.audio;
           }
         });
-    }
-   
+      }
+    });
     return this.quranService.changeQariUrl(url);
   }
 
