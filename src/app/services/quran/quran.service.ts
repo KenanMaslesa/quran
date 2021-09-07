@@ -14,7 +14,7 @@ export class QuranService {
   words: any;
   words2: any;
   showLoader = false;
-  currentPage = 1;
+  currentPage = Number(localStorage.getItem('page'))??1;
   qari = 'https://dl.salamquran.com/ayat/afasy-murattal-192/';
 //https://salamquran.com/api/v6/doc
   constructor(private http: HttpClient) {
@@ -29,6 +29,7 @@ export class QuranService {
   }
 
   getSuraWordsByPage(page, list){
+
     this.showLoader = true;
      this.http.get(`https://salamquran.com/en/api/v6/page/wbw?index=${page}`).pipe().subscribe((response) => {
        if(list == 1){
@@ -37,7 +38,6 @@ export class QuranService {
         else if(list == 2){
           this.words2 = response;
         }
-        //this.setCurrentPage(response);
         this.showLoader = false;
     });
   }

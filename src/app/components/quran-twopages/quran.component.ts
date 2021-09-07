@@ -41,6 +41,7 @@ export class QuranTwoPagesComponent implements OnInit {
 
  
   changePage(page) {
+    localStorage.setItem('page', String(page));
     this.quranService.currentPage = page;
     this.quranService.getSuraWordsByPage(page, 1);
     this.quranService.getSuraWordsByPage(page + 1, 2);

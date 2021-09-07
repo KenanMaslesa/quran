@@ -43,6 +43,7 @@ export class QuranHeaderComponent implements OnInit {
   }
 
   onSuraChanged(number) {
+    localStorage.setItem('page', number);
     this.quranService.currentPage = Number(number);
     this.quranService.getSuraWordsByPage(number, 1);
     this.quranService.getSuraWordsByPage(Number(number) + 1, 2);
