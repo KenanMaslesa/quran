@@ -1,7 +1,7 @@
 <div class="form-group dropdown-wrapper">
   <select name="sura" class="form-control" *ngIf="suraList" #surah (change)="onSuraChanged($event.target.value)">
     <option value="">Surahs</option>
-    <option value="{{sura.startpage}}" *ngFor="let sura of suraList">{{sura.tname}} - {{sura.name}}
+    <option value="{{quranService.twoPagesMode? sura.startpage -1 : sura.startpage}}" *ngFor="let sura of suraList">{{sura.tname}} - {{sura.name}}
     </option>
   </select>
 
