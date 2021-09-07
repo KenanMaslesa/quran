@@ -46,6 +46,26 @@
     <option value="3">Translate page</option>
   </select>
 
-  <input placeholder="Type page number"  type="text" class="form-control" (input)="onSuraChanged($event.target.value)">
+  <select class="select form-control" name="qari" (change)="onQariChanged($event.target.value)">
+    <option value="https://dl.salamquran.com/ayat/afasy-murattal-192/">Mishary Afasy</option>
+    <option value="https://dl.salamquran.com/ayat/muhammad_jibreel-murattal-32/">Muhammad Jibreel</option>
+    <option value="https://dl.salamquran.com/ayat/minshawi-murattal-32/">Minshawi</option>
+    <option value="https://dl.salamquran.com/ayat/minshawi-withchild-32/">Minshawi-with child</option>
+    <option value="https://dl.salamquran.com/ayat/minshawi-mujawwad-32/">Minshawi-mujawwad</option>
+    <option value="https://dl.salamquran.com/ayat/husary-murattal-32/">Husary</option>
+    <option value="https://dl.salamquran.com/ayat/husary-mujawwad-32/">Husary-mujawwad</option>
+    <option value="https://dl.salamquran.com/ayat/husary-muallim-16/">Husary-muallim</option>
+    <option value="https://dl.salamquran.com/ayat/abdulbasit-murattal-32/">Abdulbasit</option>
+    <option value="https://dl.salamquran.com/ayat/rifai-murattal-32/">Rifai</option>
+    <option value="https://dl.salamquran.com/ayat/sahih_international.en.ibrahim_walk-translation-32/">en.ibrahim_walk-translation</option>
+    <option value="https://dl.salamquran.com/ayat/saeediyan-murattal-16/">Saeediyan</option>
+    <option value="https://dl.salamquran.com/ayat/sabzali-murattal-32/">Sabzali</option>
+    <option value="https://dl.salamquran.com/ayat/parhizgar-murattal-48/">Parhizgar</option>
+    <option value="https://dl.salamquran.com/ayat/makarem.fa.kabiri-translation-16/">makarem.fa.kabiri-translation</option>
+    <option value="https://dl.salamquran.com/ayat/khalafi-murattal-192/">Khalafi</option>
+    
+  </select>
 
+  <input placeholder="Type page number"  type="text" class="form-control" (input)="onSuraChanged($event.target.value)">
+<button class="btn btn-info" (click)="quranService.bookmarkCurrentPage()">Bookmark page</button>
 </div>

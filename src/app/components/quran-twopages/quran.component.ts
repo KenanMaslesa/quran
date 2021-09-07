@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { disableDebugTools } from '@angular/platform-browser';
 import { QuranService } from 'src/app/services/quran/quran.service';
 
 @Component({
@@ -21,15 +22,13 @@ export class QuranTwoPagesComponent implements OnInit {
   audio;
   previousAyah;
   suraList;
-  audioUrl;
   constructor(public quranService: QuranService) {}
 
   ngOnInit(): void {
-    this.quranService.currentPage = 1;
+    this.quranService.currentPage = Number(localStorage.getItem('page'))??1;
     this.quranService.getSuraWordsByPage(this.quranService.currentPage, 1);
     this.quranService.getSuraWordsByPage(this.quranService.currentPage + 1, 2);
   }
-
 
 
   setSuraTitle(title: string) {
@@ -69,14 +68,14 @@ export class QuranTwoPagesComponent implements OnInit {
     this.audio.play();
   }
   playAyat(url, ayah, ayahID, page) {
-    this.audioUrl = url.audio;
+ 
     if (this.audio) {
       if (!this.audio.paused) {
         this.audio.pause();
         this.manageClassesOfAyats(this.previousAyah, 'remove');
       }
     }
-    var audio = new Audio(url.audio);
+    var audio = new Audio(this.quranService.changeQariUrl(url.audio));
     this.audio = audio;
     this.previousAyah = ayah;
     this.removeActiveClasses();
@@ -91,7 +90,6 @@ export class QuranTwoPagesComponent implements OnInit {
       ayahID = ayahID.substring(0, ayahID.indexOf('-'));
       ayahID = ayahID + '-' + ayah;
       audio.src = self.getAudioOfAyah(ayah, ayahID, page);
-      self.audioUrl = audio.src;
       self.removeActiveClasses();
       self.manageClassesOfAyats(ayahID, 'add');
       audio.play();
@@ -129,6 +127,7 @@ export class QuranTwoPagesComponent implements OnInit {
         if (ayah.word) {
           ayah.word.forEach((element) => {
             if (element.verse_key == verse) {
+              debugger;
               url = element.audio;
             }
           });
@@ -147,7 +146,7 @@ export class QuranTwoPagesComponent implements OnInit {
         });
     }
    
-    return url;
+    return this.quranService.changeQariUrl(url);
   }
 
  

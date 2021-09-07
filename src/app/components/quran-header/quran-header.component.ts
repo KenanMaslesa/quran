@@ -38,6 +38,9 @@ export class QuranHeaderComponent implements OnInit {
     }
   }
 
+  onQariChanged(value){
+    this.quranService.qari = value;
+  }
 
   onSuraChanged(number) {
     this.quranService.currentPage = Number(number);

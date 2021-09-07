@@ -15,6 +15,7 @@ export class QuranService {
   words2: any;
   showLoader = false;
   currentPage = 1;
+  qari = 'https://dl.salamquran.com/ayat/afasy-murattal-192/';
 //https://salamquran.com/api/v6/doc
   constructor(private http: HttpClient) {
   
@@ -60,6 +61,10 @@ export class QuranService {
     return this.http.get(`${this.quranApi}/chapters?language=en`).pipe();
   }
 
+  changeQariUrl(url:string){
+    return url.replace('https://dl.salamquran.com/ayat/afasy-murattal-192/', this.qari);
+  }
+
   getChapterDetails(chapterNumber){
     return this.http.get(`${this.quranApi}/chapters/${chapterNumber}/info?language=en`).pipe();
   }
@@ -74,6 +79,10 @@ export class QuranService {
 
   getRecitations(){
     return this.http.get(`${this.quranApi}/resources/recitations?language=en`).pipe();
+  }
+
+  bookmarkCurrentPage(){
+    localStorage.setItem('page', String(this.currentPage));
   }
 
 

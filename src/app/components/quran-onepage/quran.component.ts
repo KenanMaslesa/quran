@@ -23,6 +23,7 @@ export class QuranOnePageComponent implements OnInit {
   constructor(public quranService: QuranService) {}
 
   ngOnInit(): void {
+    this.quranService.currentPage = Number(localStorage.getItem('page'))??1;
     this.quranService.getSuraWordsByPage(this.quranService.currentPage, 1);
     this.getSuraList();
   }
@@ -70,7 +71,7 @@ export class QuranOnePageComponent implements OnInit {
         this.manageClassesOfAyats(this.previousAyah, 'remove');
       }
     }
-    var audio = new Audio(url.audio);
+    var audio = new Audio(this.quranService.changeQariUrl(url.audio));
     this.audio = audio;
     this.previousAyah = ayah;
     this.removeActiveClasses();
@@ -134,6 +135,6 @@ export class QuranOnePageComponent implements OnInit {
         });
       }
     });
-    return url;
+    return this.quranService.changeQariUrl(url);
   }
 }
