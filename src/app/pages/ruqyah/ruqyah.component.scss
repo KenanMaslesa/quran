@@ -1,0 +1,29 @@
+
+
+main{
+  background-image: linear-gradient(rgb(255 255 255 / 90%), rgb(255 255 255 / 95%)),url(/assets/images/quran.jpg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 0 !important;
+
+    .ayat-img{
+      display: block;
+      margin: 0 auto;
+      width: 60%;
+      transition: all 0.4s;
+      cursor: pointer;
+
+      &:hover{
+        filter: drop-shadow(2px 4px 6px rgba(255, 0, 0, 0.507))
+      }
+    }
+    
+    h2{
+      text-align: center;
+      font-size: 27px;
+      &:not(:first-child){
+        margin-top: 30px;
+      }
+    }
+}

@@ -42,6 +42,9 @@ export class QuranService {
     });
   }
 
+  getWordsBySura(sura){
+    return this.http.get(`https://salamquran.com/en/api/v6/page/wbw?index=${sura}`);
+  }
   getListOfSura(){
     return this.http.get(`https://salamquran.com/en/api/v6/sura/list`).pipe(map((responseData:quranResponseData) => {
       const suraArray = [];
@@ -56,6 +59,8 @@ export class QuranService {
   getAyah(number){
     return this.http.get(`https://salamquran.com/en/api/v6/aya?index=${number}`);
   }
+
+
 
   getChapters(){ //sure
     return this.http.get(`${this.quranApi}/chapters?language=en`).pipe();
