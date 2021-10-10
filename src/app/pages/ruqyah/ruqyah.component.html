@@ -1,4 +1,17 @@
 <main>
+  <div class="btn-wrapper">
+    <button class="btn btn-info" (click)="ruqya = true; zikr = false">Rukja</button>
+    <button class="btn btn-danger" (click)="zikr = true; ruqya = false">Jutarnji i večernji zikr</button>
+    <button class="btn btn-warning" (click)="ruqya = false; zikr = false; quran = true">Kur'an</button>
+  </div>
+
+  <ng-container *ngIf="ruqya">
+    <div class="btn-wrapper">
+      <button class="btn btn-info" (click)="shortVersion = !shortVersion; zikr = false">{{shortVersion?'Prebaci se na Dugu verziju':'Prebaci se na Kratku verziju'}}</button>
+    </div>
+  <ng-container *ngIf="shortVersion && !zikr">
+  <h1>Kraća verzija</h1>
+  
   <h2>sura Fatiha</h2>
   <img class="ayat-img" (click)="playAyat(1,1)" src="http://cdn.alquran.cloud/media/image/1/1" alt="">
   <img class="ayat-img" (click)="playAyat(1,2)" src="http://cdn.alquran.cloud/media/image/1/2" alt="">
@@ -7,6 +20,38 @@
   <img class="ayat-img" (click)="playAyat(1,5)" src="http://cdn.alquran.cloud/media/image/1/5" alt="">
   <img class="ayat-img" (click)="playAyat(1,6)" src="http://cdn.alquran.cloud/media/image/1/6" alt="">
   <img class="ayat-img" (click)="playAyat(1,7)" src="http://cdn.alquran.cloud/media/image/1/7" alt="">
+
+  <h2>sura El-Bekare - Ajetul-kursija (255)</h2>
+  <img class="ayat-img" (click)="playAyat(2,255)" src="http://cdn.alquran.cloud/media/image/2/255" alt="sura El-Bekare (255)">
+
+  <h2>sura El-Bekare - Zadnja dva ajeta (285, 286)</h2>
+  <img class="ayat-img" (click)="playAyat(2,285)" src="http://cdn.alquran.cloud/media/image/2/285" alt="sura El-Bekare (285)">
+  <img class="ayat-img" (click)="playAyat(2,286)" src="http://cdn.alquran.cloud/media/image/2/286" alt="sura El-Bekare (286)">
+
+  <h2>sura El-Ihlas</h2>
+<img class="ayat-img" (click)="playAyat(1,1)" src="http://cdn.alquran.cloud/media/image/112/1" alt="El-Ihlas">
+<img class="ayat-img" (click)="playAyat(1,1)" src="http://cdn.alquran.cloud/media/image/112/2" alt="El-Ihlas">
+<img class="ayat-img" (click)="playAyat(1,1)" src="http://cdn.alquran.cloud/media/image/112/3" alt="El-Ihlas">
+<img class="ayat-img" (click)="playAyat(1,1)" src="http://cdn.alquran.cloud/media/image/112/4" alt="El-Ihlas">
+
+<h2>sura El-Felek</h2>
+<img class="ayat-img" (click)="playAyat(1,1)" src="http://cdn.alquran.cloud/media/image/113/1" alt="El-Felek">
+<img class="ayat-img" (click)="playAyat(1,1)" src="http://cdn.alquran.cloud/media/image/113/2" alt="El-Felek">
+<img class="ayat-img" (click)="playAyat(1,1)" src="http://cdn.alquran.cloud/media/image/113/3" alt="El-Felek">
+<img class="ayat-img" (click)="playAyat(1,1)" src="http://cdn.alquran.cloud/media/image/113/4" alt="El-Felek">
+<img class="ayat-img" (click)="playAyat(1,1)" src="http://cdn.alquran.cloud/media/image/113/5" alt="El-Felek">
+
+<h2>sura En-Nas</h2>
+<img class="ayat-img" (click)="playAyat(1,1)" src="http://cdn.alquran.cloud/media/image/114/1" alt="En-Nas">
+<img class="ayat-img" (click)="playAyat(1,1)" src="http://cdn.alquran.cloud/media/image/114/2" alt="En-Nas">
+<img class="ayat-img" (click)="playAyat(1,1)" src="http://cdn.alquran.cloud/media/image/114/3" alt="En-Nas">
+<img class="ayat-img" (click)="playAyat(1,1)" src="http://cdn.alquran.cloud/media/image/114/4" alt="En-Nas">
+<img class="ayat-img" (click)="playAyat(1,1)" src="http://cdn.alquran.cloud/media/image/114/5" alt="En-Nas">
+<img class="ayat-img" (click)="playAyat(1,1)" src="http://cdn.alquran.cloud/media/image/114/6" alt="En-Nas">
+</ng-container>
+
+<ng-container *ngIf="!shortVersion && !zikr">
+  <h1>Duža verzija</h1>
 
   <h2>sura El-Bekare (102)</h2>
   <!--sura El-Bekare (102)-->
@@ -338,4 +383,68 @@
   <li>najbolje je učenje ovih ajeta redosljedom kako je gore navedeno, tj. kako je došlo u Kur'anu, o bitnosti ovoga su imami i učenjaci ovog Ummeta govorili,</li>
   <li>najpreča i najbolja rukja je ona koja je prenešena od Poslanika, sallallahu alejih ve sellem, poput rukje učenjem Fatihe, Bekare, Ajetul-kursija, zadnja dva ajeta Bekare, sure Ihlas, Felek i Nas.</li>
 </ul>
+</ng-container>
+</ng-container>
+
+
+<ng-container *ngIf="zikr">
+  <iframe src="https://www.mojnamaz.com/jutarnji-vecernji-zikr.html"></iframe>
+</ng-container>
+
+<ng-container *ngIf="quran">
+  <button class="btn" (click)="setRandomPage()">Random stranica</button>
+  <div class="play-btn-wrapper">
+    <ng-container *ngIf="audio" >
+      <button *ngIf="audio.paused" class="btn" style="margin-right: 10px" (click)="resumeAudio()">Play</button>
+      <button *ngIf="!audio.paused" class="btn" (click)="pauseAudio()">Pause</button>
+    </ng-container>
+  </div>
+  
+  <div class="main" *ngIf="quranService.words">
+  
+    <div style="margin-top: 30px;">
+  <div style="display: flex; justify-content: center; align-items: center;">
+    
+    <div style="padding: 15px; border-radius: 5px; border: 1px solid #ced4da;     min-height: 933px;
+    min-width: 690px;">
+      <div dir="rtl" lang="ar" *ngFor="let item of quranService.words.result; let i = index">
+        <section class="suraTitle" *ngIf="!item.word && item.detail.ayas">
+          <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">
+          <h3>{{item.detail.name + ' - '+ item.detail.tname}}</h3>
+        </section>
+        
+        <section class="bismillah" *ngIf="item.detail.line_type == 'besmellah' && quranService.words.result[1].detail.page != '187'">
+          <div id="{{item.detail.page}}">﷽</div>
+          <h4 class="ayeSimple">بسم الله الرحمن الرحیم</h4>
+        </section>
+  
+        <div class="ayeLine" *ngIf="item.word">
+          <ng-container *ngFor="let word of item.word">
+  
+            <i *ngIf="word.char_type != 'end'"
+              class="{{word.class_name}} aya{{word.verse_key.replace(':', '-')}}"  id="w{{word.audio_key}}" [innerHtml]="word.code"
+              (click)="playWord(word.audio)" ngbPopover="{{word.translation}}" triggers="mouseenter:mouseleave"></i>
+  
+              <i *ngIf="word.char_type == 'end'" class="{{word.class_name}} aya{{word.verse_key.replace(':', '-')}}"
+                id="w{{word.audio_key}}" [innerHtml]="word.code" (click)="playAyat(word, word.aya, word.verse_key.replace(':', '-'))"
+                (mouseover)="manageClassesOfAyats(word.verse_key, 'mouseover')"
+                (mouseleave)="manageClassesOfAyats(word.verse_key, 'mouseleave')"
+                ngbPopover="play {{word.aya}}. ayah" triggers="mouseenter:mouseleave"></i>
+  
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    </div>
+    
+        <section class="suraTitle number">
+          <img src="https://salamquran.com/static/images/quran/sura-header.svg" alt="Quran sura title">
+          <h3>      <input value="{{quranService.currentPage}}"  type="text" class="form-control" (input)="onSuraChanged($event.target.value)">
+          </h3>
+          <button class="btn next" (click)="changePage(quranService.currentPage + 1)"><</button>
+          <button class="btn prev" [disabled]="quranService.currentPage == 1" (click)="changePage(quranService.currentPage - 1)">></button>
+        </section>
+    </div>
+  </div>
+</ng-container>
 </main>

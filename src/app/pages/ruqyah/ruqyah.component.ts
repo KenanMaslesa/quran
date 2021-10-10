@@ -10,9 +10,25 @@ import { QuranService } from 'src/app/services/quran/quran.service';
 export class RuqyahComponent implements OnInit {
   ayah: any;
   index: any;
+  shortVersion = true;
+  ruqya = true;
+  zikr = false;
+  quran = false;
+  randomPage = 10;
   constructor(public quranService: QuranService, @Inject(DOCUMENT) private document: Document) { }
 
   ngOnInit(): void {
+    this.randomPage = this.getRandomNumber();
+    this.quranService.getSuraWordsByPage(this.randomPage, 1);
+  }
+
+  getRandomNumber(){
+    return  Math.floor(Math.random() * (604 - 1 + 1)) + 1;//Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  setRandomPage(){
+    this.randomPage = this.getRandomNumber();
+    this.quranService.getSuraWordsByPage(this.randomPage, 1);
   }
 
   playAyat(suraNumber, ayatNumber){
