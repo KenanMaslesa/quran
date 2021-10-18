@@ -6,7 +6,7 @@ import { QuranComponent } from './pages/quran/quran.component';
 import { RuqyahComponent } from './pages/ruqyah/ruqyah.component';
 
 const routes: Routes = [
-  {path: '', component: RuqyahComponent},
+  {path: '', component: QuranComponent},
   {path: 'quran', component: QuranComponent},
   {path: 'test', component: SpeakingComponent},
   {path: 'rukja', component: RuqyahComponent},
